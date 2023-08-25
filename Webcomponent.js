@@ -209,7 +209,7 @@ tmpl_popup.innerHTML = `
             }
             else{
               // It will not be triggered when the user clicks the Performance Helper Button to downlaod   
-              if(widgetmode === 1 &&  event.target.tagName !== 'bmw-perfhelper' )
+              if(widgetmode === 1 &&  event.target.tagName !== 'Del-Perfhelper' )
               {
               setTimeout(function() 
               {              
@@ -569,7 +569,7 @@ tmpl_popup.innerHTML = `
 
       fireDDStateChange()
       {
-        var divs = document.getElementsByTagName('bmw-perfhelper');
+        var divs = document.getElementsByTagName('Del-Perfhelper');
         var dropdown_val = divs[0].shadowRoot.getElementById('myList');
         window.widgetmode = parseInt(dropdown_val.value);
         if(window.widgetmode === 2)
@@ -1083,7 +1083,7 @@ tmpl_popup.innerHTML = `
     }   
   }
     
-  customElements.define('bmw-perfhelper', PerformanceHelper);
+  customElements.define('Del-Perfhelper', PerformanceHelper);
   
   function addXMLRequestCallback(callback){
   let oldSend;
