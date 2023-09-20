@@ -16,7 +16,7 @@
     }
   </style>
   <select id="myList">
-    <option value="1">Plane Mode</option>  
+    <option value="1">Auto Mode</option>  
     <option value="2">Manual Mode</option>  
     <option value="3">Download Logs</option>   
   </select>
