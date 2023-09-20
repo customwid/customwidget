@@ -29,7 +29,6 @@ tmpl_b.innerHTML = `
     margin-left: 10px;
     font-size: 16px;
     background-color: #008CBA;
-    z-index: 10;
     color: white;
     border: none;
     border-radius: 5px;
@@ -47,6 +46,7 @@ tmpl_popup.innerHTML = `
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 10;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
