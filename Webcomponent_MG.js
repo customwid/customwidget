@@ -29,6 +29,7 @@ tmpl_b.innerHTML = `
     margin-left: 10px;
     font-size: 16px;
     background-color: #008CBA;
+    z-index: 10;
     color: white;
     border: none;
     border-radius: 5px;
