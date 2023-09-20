@@ -154,7 +154,7 @@ tmpl_popup.innerHTML = `
 </div>
 `; 
  
-  class PerformanceHelper extends HTMLElement {
+  class PerformanceHelper_MG extends HTMLElement {
       constructor() {
           super();
           // declare global variables to be used across the whole scope of this code
@@ -1083,7 +1083,7 @@ tmpl_popup.innerHTML = `
     }   
   }
     
-  customElements.define('del-perfhelper', PerformanceHelper);
+  customElements.define('del-perfhelper', PerformanceHelper_MG);
   
   function addXMLRequestCallback(callback){
   let oldSend;
