@@ -16,7 +16,7 @@
     }
   </style>
   <select id="myList">
-    <option value="1">Auto Mode</option>  
+    <option value="1">Plane Mode</option>  
     <option value="2">Manual Mode</option>  
     <option value="3">Download Logs</option>   
   </select>
@@ -83,18 +83,6 @@ tmpl_popup.innerHTML = `
     display: flex;
     justify-content: space-between;
     width: 100%;
-  }
-
-  #popup-content #dropdown {
-    width: 100%;
-    margin-bottom: 20px;
-    }
-
-  #popup-content #dropdown label {
-    display: block;
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 5px;
   }
 
   #StepLogButton{
