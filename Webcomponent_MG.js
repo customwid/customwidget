@@ -16,7 +16,7 @@
     }
   </style>
   <select id="myList">
-    <option value="1">Plane Mode</option>  
+    <option value="1">Auto Mode</option>  
     <option value="2">Manual Mode</option>  
     <option value="3">Download Logs</option>   
   </select>
@@ -126,11 +126,16 @@ tmpl_popup.innerHTML = `
     <div id="business-comment" style="display: none;">
     <span>Sequence Description :</span>
     <textarea id="businessComment"></textarea>
-  <div id="buttons">
-    <button type="button" id="StepLogButton">Log New Step</button>
-    <button type="button" id="cancelButton">Cancel</button>
+  </div>
+    <div id="dropdown">
+    </div>
+    <div id="buttons">
+      <button type="button" id="StepLogButton">Log New Step</button>
+      <button type="button" id="cancelButton">Cancel</button>
+    </div>
   </div>
 </div>
+
 `; 
  
   class PerformanceHelper_MG extends HTMLElement {
