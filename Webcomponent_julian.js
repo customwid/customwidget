@@ -209,7 +209,7 @@ tmpl_popup.innerHTML = `
             }
             else{
               // It will not be triggered when the user clicks the Performance Helper Button to downlaod   
-              if(widgetmode === 1 &&  event.target.tagName !== 'del-perfhelper' )
+              if(widgetmode === 1 &&  event.target.tagName !== 'custom-button' )
               {
               setTimeout(function() 
               {              
@@ -569,7 +569,7 @@ tmpl_popup.innerHTML = `
 
       fireDDStateChange()
       {
-        var divs = document.getElementsByTagName('del-perfhelper');
+        var divs = document.getElementsByTagName('custom-button');
         var dropdown_val = divs[0].shadowRoot.getElementById('myList');
         window.widgetmode = parseInt(dropdown_val.value);
         if(window.widgetmode === 2)
@@ -1083,7 +1083,7 @@ tmpl_popup.innerHTML = `
     }   
   }
     
-  customElements.define('del-perfhelper', PerformanceHelper_julian);
+  customElements.define('custom-button', PerformanceHelper_julian);
   
   function addXMLRequestCallback(callback){
   let oldSend;
