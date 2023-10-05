@@ -612,13 +612,6 @@ tmpl_popup.innerHTML = `
         let dropdown =  loc_this.shadowRoot.getElementById('stepType');
         let businessComment =  loc_this.shadowRoot.getElementById('business-comment');
 
-        dropdown.addEventListener('change', () => {
-          if (dropdown.value === 'Sequence') {
-            businessComment.style.display = 'block';
-          } else {
-            businessComment.style.display = 'none';
-          }
-        });
               
         StepLogButton.addEventListener("click", () => {
           // Get a reference to the comment textarea element
@@ -629,13 +622,6 @@ tmpl_popup.innerHTML = `
 
           const  dropdown =  globalThis.shadowRoot.getElementById('stepType');
           var Seqflag = '';
-          if (dropdown.value === 'Sequence') 
-          {
-            const businessComment =  globalThis.shadowRoot.getElementById('businessComment');
-             // Get the value entered by the user
-             seqDes = businessComment.value;
-             Seqflag = 'X';
-          }       
 
           let lv_popup = loc_this.shadowRoot.getElementById('popup');
           loc_this.shadowRoot.removeChild(lv_popup);
