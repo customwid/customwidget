@@ -16,7 +16,7 @@
     }
   </style>
   <select id="myList">
-    <option value="1">Auto Log Mode</option>  
+    <option value="1">Auto Mode</option>  
     <option value="2">Manual Mode</option>  
     <option value="3">Download Logs</option>   
   </select>
@@ -41,7 +41,7 @@ tmpl_b.innerHTML = `
 tmpl_popup.innerHTML = `
 <style>  
   #popup {
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     width: 100%;
@@ -83,18 +83,6 @@ tmpl_popup.innerHTML = `
     display: flex;
     justify-content: space-between;
     width: 100%;
-  }
-
-  #popup-content #dropdown {
-    width: 100%;
-    margin-bottom: 20px;
-    }
-
-  #popup-content #dropdown label {
-    display: block;
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 5px;
   }
 
   #StepLogButton{
@@ -140,11 +128,6 @@ tmpl_popup.innerHTML = `
     <textarea id="businessComment"></textarea>
   </div>
     <div id="dropdown">
-    <span>Choose Type:</span>  
-     <select id="stepType">
-        <option value="Step">Step</option>
-        <option value="Sequence">Sequence</option>
-      </select>
     </div>
     <div id="buttons">
       <button type="button" id="StepLogButton">Log New Step</button>
@@ -152,6 +135,7 @@ tmpl_popup.innerHTML = `
     </div>
   </div>
 </div>
+
 `; 
  
   class PerformanceHelper extends HTMLElement {
@@ -621,20 +605,13 @@ tmpl_popup.innerHTML = `
         let popup = tmpl_popup.content.cloneNode(true);
         loc_this.shadowRoot.appendChild(popup);
         let lv_popup = globalThis.shadowRoot.getElementById('popup');
-        lv_popup.style.zIndex = 9999999;
+        lv_popup.style.zIndex = 10;
         let StepLogButton = loc_this.shadowRoot.getElementById('StepLogButton');
         let cancelButton = loc_this.shadowRoot.getElementById('cancelButton');
 
         let dropdown =  loc_this.shadowRoot.getElementById('stepType');
         let businessComment =  loc_this.shadowRoot.getElementById('business-comment');
 
-        dropdown.addEventListener('change', () => {
-          if (dropdown.value === 'Sequence') {
-            businessComment.style.display = 'block';
-          } else {
-            businessComment.style.display = 'none';
-          }
-        });
               
         StepLogButton.addEventListener("click", () => {
           // Get a reference to the comment textarea element
@@ -645,13 +622,6 @@ tmpl_popup.innerHTML = `
 
           const  dropdown =  globalThis.shadowRoot.getElementById('stepType');
           var Seqflag = '';
-          if (dropdown.value === 'Sequence') 
-          {
-            const businessComment =  globalThis.shadowRoot.getElementById('businessComment');
-             // Get the value entered by the user
-             seqDes = businessComment.value;
-             Seqflag = 'X';
-          }       
 
           let lv_popup = loc_this.shadowRoot.getElementById('popup');
           loc_this.shadowRoot.removeChild(lv_popup);
@@ -1413,4 +1383,4 @@ tmpl_popup.innerHTML = `
           }
         await 1;
         }
-})();
+})();f
