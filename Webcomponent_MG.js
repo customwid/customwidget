@@ -440,7 +440,7 @@ tmpl_popup.innerHTML = `
                   var hhmmss = parseInt(hours+minutes+seconds);
 
                   window.xhr_log.push({ CellArraySize : CellArraySize , NetworkInfo : 
-                  xhr_queue[o].xhr._networkInfo , SequenceMapping:0 ,StepMapping : 0 , Timestamp :
+                  xhr_queue[o].xhr._networkInfo  ,StepMapping : 0 , Timestamp :
                   xhr_queue[o].xhr._timestamp , StartTime : hhmmss ,
                   Userfriendly : xhr_queue[o].xhr._userFriendlyPerfData ,
                   PerformanceAnalysis :PerfAnalysis,
@@ -623,21 +623,9 @@ tmpl_popup.innerHTML = `
                     Widgetinfo :[],
                     processed : 'X'  })
                
-                  sNo = sNo + 1;  
+                  sNo = sNo + 1;             
 
-                  if(Seqflag === 'X')
-                  {
-                    // Update the value of SequenceDesc for matching items
-                    steplog.forEach(item => {
-                      if (item.SequenceDesc === '') {
-                        item.SequenceDesc = seqDes;
-                      }
-                    });
-                    seqNo = seqNo + 1;
-                    seqDes = '';
-                  }           
-
-                }
+                }7
                 //process the unprocessed records in the XHR log Queue
                 globalThis.processlogvariable();
              }, 700);
@@ -831,7 +819,7 @@ tmpl_popup.innerHTML = `
               }   
               }
             //create a local copy for download which is not soo detailed       
-              local_log.push({SequenceNo : steplog[i].SequenceNo  ,SequenceDesc : steplog[i].SequenceDesc ,StepNo : steplog[i].StepNo, StepStartDate : steplog[i].StepStartDate ,  StepStartTime : steplog[i].StepStartTime , StepEndTime : steplog[i].StepEndTime , StepDuration : parseInt(steplog[i].StepDuration) , UserAction : steplog[i].UserAction , TotalCellArrayCount: steplog[i].TotalCellArrayCount , TotalBytes : steplog[i].TotalBytes , InaCount : steplog[i].InaCall.length, WidgetCount : steplog[i].Widgetinfo.length }) ;
+              local_log.push({StepNo : steplog[i].StepNo, StepStartDate : steplog[i].StepStartDate ,  StepStartTime : steplog[i].StepStartTime , StepEndTime : steplog[i].StepEndTime , StepDuration : parseInt(steplog[i].StepDuration) , UserAction : steplog[i].UserAction , TotalCellArrayCount: steplog[i].TotalCellArrayCount , TotalBytes : steplog[i].TotalBytes , InaCount : steplog[i].InaCall.length, WidgetCount : steplog[i].Widgetinfo.length }) ;
 
               }         
 
@@ -948,7 +936,7 @@ tmpl_popup.innerHTML = `
       JSON2CSV(objArray) {
        var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
         // Set the column headers
-       var str = 'SequenceNo,SequenceDescription,StepNo,StepStartDate,StepStartTime,StepEndTime,StepDuration,UserAction,TotalCellArrayCount,TotalBytes,NumberOfINAcalls,TotalWidgetAffected\r\n';    
+       var str = 'StepNo,StepStartDate,StepStartTime,StepEndTime,StepDuration,UserAction,TotalCellArrayCount,TotalBytes,NumberOfINAcalls,TotalWidgetAffected\r\n';    
       for (var i = 0; i < array.length; i++) {
         var line = '';
         for (var index in array[i]) {
@@ -1065,7 +1053,6 @@ tmpl_popup.innerHTML = `
                 
                 window.xhr_log.push({ CellArraySize : CellArraySize , 
                 NetworkInfo :  xhr._networkInfo , 
-                SequenceMapping:0 ,
                 StepMapping : 0 , 
                 Timestamp : xhr._timestamp , 
                 StartTime : hhmmss,
@@ -1149,7 +1136,6 @@ tmpl_popup.innerHTML = `
                
                window.xhr_log.push({ CellArraySize : CellArraySize , NetworkInfo : 
                xhr._networkInfo , 
-               SequenceMapping:0 ,
                StepMapping : 0 , 
                Timestamp : xhr._timestamp , 
                StartTime : hhmmss,
@@ -1201,7 +1187,7 @@ tmpl_popup.innerHTML = `
                   }
                   if(diff_time > 1000) // This is a new step since the difference is more than 1 second
                   {
-                    steplog.push({SequenceNo : seqNo , SequenceDesc : seqDes ,  StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) ,  LogMode : 'Auto', processed : ''  })
+                    steplog.push({StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) ,  LogMode : 'Auto', processed : ''  })
                     psNo = reslen ;
                     sNo = sNo + 1;       
                   }
@@ -1276,7 +1262,7 @@ tmpl_popup.innerHTML = `
                var hhmmss = parseInt(hours+minutes+seconds);
 
                window.xhr_log.push({ CellArraySize : CellArraySize , NetworkInfo : 
-                xhr_queue[o].xhr._networkInfo , SequenceMapping:0 , StepMapping : 0 , Timestamp :
+                xhr_queue[o].xhr._networkInfo ,  StepMapping : 0 , Timestamp :
                 xhr_queue[o].xhr._timestamp , StartTime : hhmmss ,
                 Userfriendly : xhr_queue[o].xhr._userFriendlyPerfData ,
                 PerformanceAnalysis : PerfAnalysis,
