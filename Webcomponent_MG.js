@@ -176,9 +176,9 @@ tmpl_popup.innerHTML = `
                         x =  lv_result.length + 1;
                     }
                  }
-                 steplog.push({SequenceNo : seqNo , SequenceDesc : seqDes ,  StepNo:sNo , StepStartId: psNo ,StepEndId: split_index-1 , StepSnapshot:lv_result.slice(psNo,split_index) , LogMode : 'Auto' , processed : ''  })
+                 steplog.push({ StepNo:sNo , StepStartId: psNo ,StepEndId: split_index-1 , StepSnapshot:lv_result.slice(psNo,split_index) , LogMode : 'Auto' , processed : ''  })
                 sNo = sNo + 1; 
-                steplog.push({SequenceNo : seqNo , SequenceDesc : seqDes ,  StepNo:sNo , StepStartId: split_index ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(split_index,reslen) , LogMode : 'Auto' ,  processed : ''  })
+                steplog.push({  StepNo:sNo , StepStartId: split_index ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(split_index,reslen) , LogMode : 'Auto' ,  processed : ''  })
                 psNo = reslen ;
                 sNo = sNo + 1; 
                  } 
@@ -216,7 +216,7 @@ tmpl_popup.innerHTML = `
 
                   if(diff_time > 1000) // This is a new step since the difference is more than 1 second
                   {
-                    steplog.push({SequenceNo : seqNo , SequenceDesc : seqDes ,  StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Auto' , processed : ''  })
+                    steplog.push({  StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Auto' , processed : ''  })
                     psNo = reslen ;
                     sNo = sNo + 1;       
                   }
@@ -284,8 +284,6 @@ tmpl_popup.innerHTML = `
             let StepLogButton = globalThis.shadowRoot.getElementById('StepLogButton');
             let cancelButton = globalThis.shadowRoot.getElementById('cancelButton');
 
-        let dropdown =  globalThis.shadowRoot.getElementById('stepType');
-        let businessComment =  globalThis.shadowRoot.getElementById('business-comment');
 
         dropdown.addEventListener('change', () => {
           if (dropdown.value === 'Sequence') {
