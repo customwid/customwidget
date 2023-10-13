@@ -949,7 +949,7 @@ tmpl_popup.innerHTML = `
     }   
   }
     
-  customElements.define('del-perfhelper-MG', PerformanceHelper_MG);
+  customElements.define('del-perfhelper', PerformanceHelper_MG);
   
   function addXMLRequestCallback(callback){
   let oldSend;
