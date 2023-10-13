@@ -688,11 +688,11 @@ tmpl_popup.innerHTML = `
                   {
                    if( widgetmode === 1 )
                    {
-                    steplog.push({SequenceNo : seqNo ,SequenceDesc : seqDes ,  StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Auto', processed : ''  })
+                    steplog.push({StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Auto', processed : ''  })
                    }
                     else 
                     {
-                      steplog.push({SequenceNo : seqNo , SequenceDesc : seqDes ,  StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Manual', processed : ''  })
+                      steplog.push({StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Manual', processed : ''  })
                     }
                     psNo = reslen ;
                     sNo = sNo + 1;       
@@ -776,8 +776,6 @@ tmpl_popup.innerHTML = `
                 var xhr_log_filter = xhr_log.filter( e => e.StartTime > PreviousEndtime  && e.StartTime <= CurrentEndtime  );
                 xhr_log_filter .forEach(function(filteredElement, index) {
                   xhr_log[xhr_log.indexOf(filteredElement)].StepMapping = steplog[i].StepNo;
-                  xhr_log[xhr_log.indexOf(filteredElement)].SequenceMapping = steplog[i].SequenceNo;
-                  xhr_log[xhr_log.indexOf(filteredElement)].SequenceDesc = steplog[i].SequenceDesc;
               });
                 PreviousEndtime = parseInt(hhmmss);  
               // Calculate the sum based on the filterd array 
