@@ -145,8 +145,6 @@ tmpl_popup.innerHTML = `
           window.userF_log = [];
           window.userF_queue = [];
           window.sNo = 1;
-          window.seqNo = 0;
-          window.seqDes = 'Default';
           window.psNo = 0;    
           window.globalThis = this;    
           this.init();           
