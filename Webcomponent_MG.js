@@ -44,8 +44,8 @@ tmpl_popup.innerHTML = `
     position: relative;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 50%;
+    height: 50%;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
@@ -70,7 +70,7 @@ tmpl_popup.innerHTML = `
 
   #popup-content textarea {
     width: 100%;
-    height: 30px;
+    height: 10px;
     resize: none;
     padding: 5px;
     font-size: 16px;
@@ -110,7 +110,7 @@ tmpl_popup.innerHTML = `
   
 
   #popup-content #dropdown select {
-    width: 100%;
+    width: 50%;
     padding: 10px;
     font-size: 16px;
     background-color: white;
