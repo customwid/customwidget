@@ -283,15 +283,6 @@ tmpl_popup.innerHTML = `
             globalThis.shadowRoot.appendChild(popup);
             let StepLogButton = globalThis.shadowRoot.getElementById('StepLogButton');
             let cancelButton = globalThis.shadowRoot.getElementById('cancelButton');
-
-
-        dropdown.addEventListener('change', () => {
-          if (dropdown.value === 'Sequence') {
-            businessComment.style.display = 'block';
-          } else {
-            businessComment.style.display = 'none';
-          }
-        });
               
         StepLogButton.addEventListener("click", () => {
           
@@ -300,15 +291,6 @@ tmpl_popup.innerHTML = `
          // Get the value entered by the user
          const commentValue = commentTextArea.value;
          // Check the selected value in the Type selection -> If the user has selected Sequence then read the value present in the comment area for business
-         const  dropdown =  globalThis.shadowRoot.getElementById('stepType');
-         var Seqflag = '';
-         if (dropdown.value === 'Sequence') 
-            {
-              const businessComment =  globalThis.shadowRoot.getElementById('businessComment');
-              // Get the value entered by the user
-              seqDes = businessComment.value;
-              Seqflag = 'X';
-            }
        
         // Get the parent panel of the button
           let lv_popup = globalThis.shadowRoot.getElementById('popup');
@@ -333,21 +315,9 @@ tmpl_popup.innerHTML = `
                 //If there are new entries -> a new step will be created corresponding to them
                 if(psNo!==reslen)
                 { 
-                   steplog.push({SequenceNo : seqNo , SequenceDesc : seqDes , StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Manual' , UserAction : commentValue , processed : ''  })
+                   steplog.push({StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Manual' , UserAction : commentValue , processed : ''  })
                   psNo = reslen ;
-                  sNo = sNo + 1;   
-                  if(Seqflag === 'X')
-                  {
-                    // Update the value of SequenceDesc for matching items
-                    steplog.forEach(item => {
-                      if (item.SequenceDesc === '') {
-                        item.SequenceDesc = seqDes;
-                      }
-                    });
-                    seqNo = seqNo + 1;
-                    seqDes = '';
-                  }  
-
+                  sNo = sNo + 1;    
                 } 
                 //Log an empty step with just the user description
                 else
@@ -363,12 +333,10 @@ tmpl_popup.innerHTML = `
                   const minutes = now.getMinutes().toString().padStart(2, '0');
                   const seconds = now.getSeconds().toString().padStart(2, '0');
                   const currentTime = `${hours}:${minutes}:${seconds}`;
-                //  steplog.push({SequenceNo : seqNo , SequenceDesc : seqDes , StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Manual' , UserAction : commentValue , processed : ''  })
+                //  steplog.push({StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Manual' , UserAction : commentValue , processed : ''  })
                   steplog.push({
                     InaCall : [],
                     LogMode : 'Manual' ,
-                    SequenceDesc : seqDes , 
-                    SequenceNo : seqNo , 
                     StepDuration : 0 ,
                     StepEndId: reslen-1 ,
                     StepEndTime : currentTime,
@@ -385,18 +353,7 @@ tmpl_popup.innerHTML = `
                     processed : 'X'  })
                
                   sNo = sNo + 1;  
-
-                  if(Seqflag === 'X')
-                  {
-                    // Update the value of SequenceDesc for matching items
-                    steplog.forEach(item => {
-                      if (item.SequenceDesc === '') {
-                        item.SequenceDesc = seqDes;
-                      }
-                    });
-                    seqNo = seqNo + 1;
-                    seqDes = '';
-                  }           
+         
 
                 }
 
@@ -551,37 +508,11 @@ tmpl_popup.innerHTML = `
         if(window.widgetmode === 2)
         {
         var button_text = divs[0].shadowRoot.getElementById('newBTN');
-        if(button_text !== 'Log new Step')
-        {
-        //Increase the Sequence Counter :
-        if(seqNo === 0)
-        {
-          seqNo = seqNo + 1;
-        }
-        else
-        {
-        seqNo = steplog[steplog.length - 1].SequenceNo + 1 ;
-        seqDes = '';
-        }
-        }        
         button_text.textContent = 'Log new Step';
         }
         else
         {
           var button_text = divs[0].shadowRoot.getElementById('newBTN');
-          if(button_text !== 'Download Logs')
-            {
-            //Increase the Sequence Counter :
-            if(seqNo === 0)
-            {
-              seqNo = seqNo + 1;
-            }
-            else
-            {
-            seqNo =  steplog[steplog.length - 1].SequenceNo + 1 ;
-            seqDes = 'Default';
-            }
-          }
           divs[0].shadowRoot.getElementById('newBTN').textContent = 'Download Logs';     
         }
       }
@@ -622,7 +553,7 @@ tmpl_popup.innerHTML = `
            // Modify the width of the parent panel
             parentPanel.style.height = '100px';
             //Trigger the event to log a step 
-            loc_this.fireStepLogger(commentValue , Seqflag);
+            loc_this.fireStepLogger(commentValue);
         });
 
         cancelButton.addEventListener("click", () => {
@@ -637,7 +568,7 @@ tmpl_popup.innerHTML = `
       }
       
       // When the mode is to create a Manual Step
-      fireStepLogger(commentValue , Seqflag)
+      fireStepLogger(commentValue)
       {
         setTimeout(function() 
               {              
@@ -653,21 +584,10 @@ tmpl_popup.innerHTML = `
                   //If there are new entries -> a new step will be created corresponding to them
                   if(psNo!==reslen)
                   {                                         
-                    steplog.push({SequenceNo : seqNo , SequenceDesc : seqDes ,  StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Manual' , UserAction : commentValue , processed : ''  })
+                    steplog.push({ StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Manual' , UserAction : commentValue , processed : ''  })
                     psNo = reslen ;
                     sNo = sNo + 1;
-                    
-                    if(Seqflag === 'X')
-                    {
-                      // Update the value of SequenceDesc for matching items
-                      steplog.forEach(item => {
-                        if (item.SequenceDesc === '') {
-                          item.SequenceDesc = seqDes;
-                        }
-                      });
-                      seqNo = seqNo + 1;
-                      seqDes = '';
-                    }                            
+                                             
                   } 
 
                   //Log an empty step with just the user description
@@ -687,9 +607,7 @@ tmpl_popup.innerHTML = `
                 //  steplog.push({SequenceNo : seqNo , SequenceDesc : seqDes , StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Manual' , UserAction : commentValue , processed : ''  })
                   steplog.push({
                     InaCall : [],
-                    LogMode : 'Manual' ,
-                    SequenceDesc : seqDes , 
-                    SequenceNo : seqNo , 
+                    LogMode : 'Manual' , 
                     StepDuration : 0 ,
                     StepEndId: reslen-1 ,
                     StepEndTime : currentTime,
