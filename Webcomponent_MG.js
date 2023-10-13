@@ -264,7 +264,7 @@ tmpl_popup.innerHTML = `
             // Get the parent panel of the button
             const parentPanel = this.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
             // Modify the width of the parent panel
-             parentPanel.style.height = '400px';
+             parentPanel.style.height = '200px';
             this.firehandler(this);           
             this.dispatchEvent(event);
             });    
@@ -278,7 +278,7 @@ tmpl_popup.innerHTML = `
             // Get the parent panel of the button
             const parentPanel = globalThis.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
             // Modify the width of the parent panel
-            parentPanel.style.height = '400px';
+            parentPanel.style.height = '200px';
             let popup = tmpl_popup.content.cloneNode(true);
             globalThis.shadowRoot.appendChild(popup);
             let StepLogButton = globalThis.shadowRoot.getElementById('StepLogButton');
