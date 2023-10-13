@@ -553,7 +553,7 @@ tmpl_popup.innerHTML = `
            // Modify the width of the parent panel
             parentPanel.style.height = '100px';
             //Trigger the event to log a step 
-            loc_this.fireStepLogger(commentValue, Seqflag);
+            loc_this.fireStepLogger(commentValue);
         });
 
         cancelButton.addEventListener("click", () => {
@@ -568,7 +568,7 @@ tmpl_popup.innerHTML = `
       }
       
       // When the mode is to create a Manual Step
-      fireStepLogger(commentValue, Seqflag)
+      fireStepLogger(commentValue)
       {
         setTimeout(function() 
               {              
