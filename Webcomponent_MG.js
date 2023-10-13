@@ -49,7 +49,7 @@ tmpl_popup.innerHTML = `
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
   }
 
   #popup-content {
@@ -69,8 +69,8 @@ tmpl_popup.innerHTML = `
   }
 
   #popup-content textarea {
-    width: 100%;
-    height: 10px;
+    width: 96%;
+    height: 25px;
     resize: none;
     padding: 5px;
     font-size: 16px;
