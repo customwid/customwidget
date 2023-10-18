@@ -16,7 +16,7 @@
     }
   </style>
   <select id="myList">
-    <option value="1">Auto Mode</option>  
+    <option value="1">Auto Log Mode</option>  
     <option value="2">Manual Mode</option>  
     <option value="3">Download Logs</option>   
   </select>
@@ -41,7 +41,7 @@ tmpl_b.innerHTML = `
 tmpl_popup.innerHTML = `
 <style>  
   #popup {
-    position: relative;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -83,6 +83,18 @@ tmpl_popup.innerHTML = `
     display: flex;
     justify-content: space-between;
     width: 100%;
+  }
+
+  #popup-content #dropdown {
+    width: 100%;
+    margin-bottom: 20px;
+    }
+
+  #popup-content #dropdown label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
   }
 
   #StepLogButton{
@@ -128,6 +140,11 @@ tmpl_popup.innerHTML = `
     <textarea id="businessComment"></textarea>
   </div>
     <div id="dropdown">
+    <span>Choose Type:</span>  
+     <select id="stepType">
+        <option value="Step">Step</option>
+        <option value="Sequence">Sequence</option>
+      </select>
     </div>
     <div id="buttons">
       <button type="button" id="StepLogButton">Log New Step</button>
@@ -135,7 +152,6 @@ tmpl_popup.innerHTML = `
     </div>
   </div>
 </div>
-
 `; 
  
   class PerformanceHelper_julian extends HTMLElement {
@@ -193,7 +209,7 @@ tmpl_popup.innerHTML = `
             }
             else{
               // It will not be triggered when the user clicks the Performance Helper Button to downlaod   
-              if(widgetmode === 1 &&  event.target.tagName !== 'del-perfhelper_julian' )
+              if(widgetmode === 1 &&  event.target.tagName !== 'del-perfhelper' )
               {
               setTimeout(function() 
               {              
@@ -553,7 +569,7 @@ tmpl_popup.innerHTML = `
 
       fireDDStateChange()
       {
-        var divs = document.getElementsByTagName('del-perfhelper_julian');
+        var divs = document.getElementsByTagName('del-perfhelper');
         var dropdown_val = divs[0].shadowRoot.getElementById('myList');
         window.widgetmode = parseInt(dropdown_val.value);
         if(window.widgetmode === 2)
@@ -605,13 +621,20 @@ tmpl_popup.innerHTML = `
         let popup = tmpl_popup.content.cloneNode(true);
         loc_this.shadowRoot.appendChild(popup);
         let lv_popup = globalThis.shadowRoot.getElementById('popup');
-        lv_popup.style.zIndex = 10;
+        lv_popup.style.zIndex = 9999999;
         let StepLogButton = loc_this.shadowRoot.getElementById('StepLogButton');
         let cancelButton = loc_this.shadowRoot.getElementById('cancelButton');
 
         let dropdown =  loc_this.shadowRoot.getElementById('stepType');
         let businessComment =  loc_this.shadowRoot.getElementById('business-comment');
 
+        dropdown.addEventListener('change', () => {
+          if (dropdown.value === 'Sequence') {
+            businessComment.style.display = 'block';
+          } else {
+            businessComment.style.display = 'none';
+          }
+        });
               
         StepLogButton.addEventListener("click", () => {
           // Get a reference to the comment textarea element
@@ -622,6 +645,13 @@ tmpl_popup.innerHTML = `
 
           const  dropdown =  globalThis.shadowRoot.getElementById('stepType');
           var Seqflag = '';
+          if (dropdown.value === 'Sequence') 
+          {
+            const businessComment =  globalThis.shadowRoot.getElementById('businessComment');
+             // Get the value entered by the user
+             seqDes = businessComment.value;
+             Seqflag = 'X';
+          }       
 
           let lv_popup = loc_this.shadowRoot.getElementById('popup');
           loc_this.shadowRoot.removeChild(lv_popup);
@@ -1053,7 +1083,7 @@ tmpl_popup.innerHTML = `
     }   
   }
     
-  customElements.define('del-perfhelper_julian', PerformanceHelper_julian);
+  customElements.define('del-perfhelper', PerformanceHelper_julian);
   
   function addXMLRequestCallback(callback){
   let oldSend;
@@ -1089,177 +1119,108 @@ tmpl_popup.innerHTML = `
               processStepLog(xhr);
              }
            });     
-           
+        async function processResponse(xhr)
+        {  
+          var response = JSON.parse(xhr._responseFormatted)  ;
+            if(response !==null)
+            {  
+              if(response.Grids!== undefined && response.Grids !== null && response.Grids.length > 0)
+              {
+                var cac = 1;
+                var cac_set = false;
+                if (response.Grids[0].hasOwnProperty('CellArraySizes') === true)
+                {
+                  if(response.Grids[0].CellArraySizes.length > 1)
+                  {
+                    cac = response.Grids[0].CellArraySizes[0] * response.Grids[0].CellArraySizes[1];
+                    cac_set = true;
+                  }
+                  else { 
+                    cac = response.Grids[0].CellArraySizes[0]; 
+                  }
+                }
+                else 
+                {
+                  for( var o = 0 ; o < response.Grids[0].Axes.length ; o++)
+                            {
+                                cac = cac *  response.Grids[0].Axes[o].TupleCountTotal;
+                                cac_set = true;
+                            }
+                }
+                if(cac_set === false)
+                {cac = 0;
+                }
+                var CellArraySize = cac ;
+              }
+              if(response.PerformanceAnalysis!== undefined && response.PerformanceAnalysis!== null)
+              {
+                  var PerfAnalysis = response.PerformanceAnalysis;
+              }
+              if(response.PerformanceData!== undefined && response.PerformanceData!== null)
+              {
+                  var PerfData = response.PerformanceData;
+              }
+            }
+
+            if(xhr._networkInfo !== null && xhr._networkInfo !== undefined )
+             {
+              var tbt = xhr._networkInfo.transferSize;
+              
+             }
+             
+             else
+              {
+                var tbt = 0;
+              }
+
+              var hours = xhr._timestamp.getHours().toString().padStart(2, '0');
+              var minutes = xhr._timestamp.getMinutes().toString().padStart(2, '0');
+              var seconds = xhr._timestamp.getSeconds().toString().padStart(2, '0');
+              var hhmmss = parseInt(hours+minutes+seconds);
+              
+              window.xhr_log.push({ CellArraySize : CellArraySize , 
+              NetworkInfo :  xhr._networkInfo , 
+              SequenceMapping:0 ,
+              StepMapping : 0 , 
+              Timestamp : xhr._timestamp , 
+              StartTime : hhmmss,
+              UserfriendlyInfo: xhr._userFriendlyPerfData , 
+              PerformanceAnalysis :PerfAnalysis,
+              PerformanceData :PerfData,
+              TBT : tbt,
+              readstate : xhr.readyState                 
+               }) ; 
+        }
+
         async function processXhrResults(xhr)
         {
           //Continue the execution of the callback to avoid any delay in processing
-          setTimeout(function()
+          setTimeout(async function()
           {   
             var timestamp = new Date();   
-            if(xhr.status == 200 && xhr.readyState === 4)          
-            
-            {   var response = JSON.parse(xhr._responseFormatted)  ;
-              if(response !==null)
-              {  
-                if(response.Grids!== undefined && response.Grids !== null && response.Grids.length > 0)
-                {
-                  var cac = 1;
-                  var cac_set = false;
-                  if (response.Grids[0].hasOwnProperty('CellArraySizes') === true)
-                  {
-                    if(response.Grids[0].CellArraySizes.length > 1)
-                    {
-                      cac = response.Grids[0].CellArraySizes[0] * response.Grids[0].CellArraySizes[1];
-                      cac_set = true;
-                    }
-                    else { 
-                      cac = response.Grids[0].CellArraySizes[0]; 
-                    }
-                  }
-                  else 
-                  {
-                    for( var o = 0 ; o < response.Grids[0].Axes.length ; o++)
-                              {
-                                  cac = cac *  response.Grids[0].Axes[o].TupleCountTotal;
-                                  cac_set = true;
-                              }
-                  }
-                  if(cac_set === false)
-                  {cac = 0;
-                  }
-                  var CellArraySize = cac ;
-                }
-                if(response.PerformanceAnalysis!== undefined && response.PerformanceAnalysis!== null)
-                {
-                    var PerfAnalysis = response.PerformanceAnalysis;
-                }
-                if(response.PerformanceData!== undefined && response.PerformanceData!== null)
-                {
-                    var PerfData = response.PerformanceData;
-                }
-              }
-
-              if(xhr._networkInfo !== null && xhr._networkInfo !== undefined )
-               {
-                var tbt = xhr._networkInfo.transferSize;
-                
-               }
-               
-               else
-                {
-                  var tbt = 0;
-                }
-
-                var hours = xhr._timestamp.getHours().toString().padStart(2, '0');
-                var minutes = xhr._timestamp.getMinutes().toString().padStart(2, '0');
-                var seconds = xhr._timestamp.getSeconds().toString().padStart(2, '0');
-                var hhmmss = parseInt(hours+minutes+seconds);
-                
-                window.xhr_log.push({ CellArraySize : CellArraySize , 
-                NetworkInfo :  xhr._networkInfo , 
-                SequenceMapping:0 ,
-                StepMapping : 0 , 
-                Timestamp : xhr._timestamp , 
-                StartTime : hhmmss,
-                UserfriendlyInfo: xhr._userFriendlyPerfData , 
-                PerformanceAnalysis :PerfAnalysis,
-                PerformanceData :PerfData,
-                TBT : tbt,
-                readstate : xhr.readyState                 
-                 }) ; 
-                }
+            if(xhr.status == 200 && xhr.readyState === 4)
+            {
+            await processResponse(xhr);
+            }
             else
             {
-              trimresponsewithdelay(xhr);
-            }              
-            },200)
-            await 1;
-        }
-
-        async function trimresponsewithdelay(xhr)
-        {
-          setTimeout(function()
+            setTimeout(async function()
           {   
             //add another delay of 2 seconds             
-            if(xhr.status == 200  && xhr.readyState === 4 )          
-            
-            {   var response = JSON.parse(xhr._responseFormatted)  ;
-              if(response !==null)
-              {  
-                if(response.Grids!== undefined && response.Grids !== null && response.Grids.length > 0)
-                {
-                  var cac = 1;
-                  var cac_set = false;
-                  if (response.Grids[0].hasOwnProperty('CellArraySizes') === true)
-                  {
-                    if(response.Grids[0].CellArraySizes.length > 1)
-                    {
-                      cac = response.Grids[0].CellArraySizes[0] * response.Grids[0].CellArraySizes[1];
-                      cac_set = true;
-                    }
-                    else { 
-                      cac = response.Grids[0].CellArraySizes[0]; 
-                    }
-                  }
-                  else 
-                  {
-                    for( var o = 0 ; o < response.Grids[0].Axes.length ; o++)
-                              {
-                                  cac = cac *  response.Grids[0].Axes[o].TupleCountTotal;
-                                  cac_set = true;
-                              }
-                  }
-                  if(cac_set === false)
-                  {cac = 0;
-                  }
-                  var CellArraySize = cac ;
-                }
-                if(response.PerformanceAnalysis!== undefined && response.PerformanceAnalysis!== null)
-                {
-                    var PerfAnalysis = response.PerformanceAnalysis;
-                }
-                if(response.PerformanceData!== undefined && response.PerformanceData!== null)
-                {
-                    var PerfData = response.PerformanceData;
-                }
-
-              }   
-
-              if(xhr._networkInfo !== null && xhr._networkInfo !== undefined )
-              {
-               var tbt = xhr._networkInfo.transferSize;
-               
-              }              
-              else
-               {
-                 var tbt = 0;
-               }            
-               var hours = xhr._timestamp.getHours().toString().padStart(2, '0');
-               var minutes = xhr._timestamp.getMinutes().toString().padStart(2, '0');
-               var seconds = xhr._timestamp.getSeconds().toString().padStart(2, '0');
-               var hhmmss = parseInt(hours+minutes+seconds);
-               
-               window.xhr_log.push({ CellArraySize : CellArraySize , NetworkInfo : 
-               xhr._networkInfo , 
-               SequenceMapping:0 ,
-               StepMapping : 0 , 
-               Timestamp : xhr._timestamp , 
-               StartTime : hhmmss,
-               UserfriendlyInfo: xhr._userFriendlyPerfData ,
-               PerformanceAnalysis :PerfAnalysis,
-               PerformanceData :PerfData, 
-               TBT : tbt,
-               readstate : xhr.readyState                 
-                }) ;
-               }
+            if(xhr.status == 200  && xhr.readyState === 4 )
+            {
+              await processResponse(xhr);
+            }
             else {
               var timestamp = new Date();  
               window.xhr_queue.push( { xhr :  xhr , timestamp : timestamp , readstate : xhr.readyState , status:xhr.status , processed : ''});
-            }
+                }
             },200)
             await 1;
+            }              
+          },200)
+            await 1;
         }
-
         async function processStepLog(xhr)
         {
           // store the User friendly Logs 
@@ -1383,4 +1344,4 @@ tmpl_popup.innerHTML = `
           }
         await 1;
         }
-})();f
+})();
