@@ -41,7 +41,7 @@
   tmpl_popup.innerHTML = `
   <style>  
     #popup {
-      position: relative;
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
@@ -49,7 +49,7 @@
       background-color: rgba(0, 0, 0, 0.5);
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
     }
   
     #popup-content {
@@ -69,8 +69,8 @@
     }
   
     #popup-content textarea {
-      width: 100%;
-      height: 30px;
+      width: 96%;
+      height: 25px;
       resize: none;
       padding: 5px;
       font-size: 16px;
@@ -110,7 +110,7 @@
     
   
     #popup-content #dropdown select {
-      width: 100%;
+      width: 50%;
       padding: 10px;
       font-size: 16px;
       background-color: white;
@@ -123,10 +123,6 @@
     <div id="popup-content">
       <span>Step Description :</span>
       <textarea id="comment"></textarea>
-      <div id="business-comment" style="display: none;">
-      <span>Sequence Description :</span>
-      <textarea id="businessComment"></textarea>
-    </div>
       <div id="dropdown">
       </div>
       <div id="buttons">
@@ -138,7 +134,7 @@
   
   `; 
    
-    class PerformanceHelper_julian extends HTMLElement {
+    class PerformanceHelper_Julian extends HTMLElement {
         constructor() {
             super();
             // declare global variables to be used across the whole scope of this code
@@ -149,8 +145,6 @@
             window.userF_log = [];
             window.userF_queue = [];
             window.sNo = 1;
-            window.seqNo = 0;
-            window.seqDes = 'Default';
             window.psNo = 0;    
             window.globalThis = this;    
             this.init();           
@@ -182,9 +176,9 @@
                           x =  lv_result.length + 1;
                       }
                    }
-                   steplog.push({SequenceNo : seqNo , SequenceDesc : seqDes ,  StepNo:sNo , StepStartId: psNo ,StepEndId: split_index-1 , StepSnapshot:lv_result.slice(psNo,split_index) , LogMode : 'Auto' , processed : ''  })
+                   steplog.push({ StepNo:sNo , StepStartId: psNo ,StepEndId: split_index-1 , StepSnapshot:lv_result.slice(psNo,split_index) , LogMode : 'Auto' , processed : ''  })
                   sNo = sNo + 1; 
-                  steplog.push({SequenceNo : seqNo , SequenceDesc : seqDes ,  StepNo:sNo , StepStartId: split_index ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(split_index,reslen) , LogMode : 'Auto' ,  processed : ''  })
+                  steplog.push({  StepNo:sNo , StepStartId: split_index ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(split_index,reslen) , LogMode : 'Auto' ,  processed : ''  })
                   psNo = reslen ;
                   sNo = sNo + 1; 
                    } 
@@ -222,7 +216,7 @@
   
                     if(diff_time > 1000) // This is a new step since the difference is more than 1 second
                     {
-                      steplog.push({SequenceNo : seqNo , SequenceDesc : seqDes ,  StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Auto' , processed : ''  })
+                      steplog.push({  StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Auto' , processed : ''  })
                       psNo = reslen ;
                       sNo = sNo + 1;       
                     }
@@ -270,7 +264,7 @@
               // Get the parent panel of the button
               const parentPanel = this.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
               // Modify the width of the parent panel
-               parentPanel.style.height = '400px';
+               parentPanel.style.height = '200px';
               this.firehandler(this);           
               this.dispatchEvent(event);
               });    
@@ -284,22 +278,11 @@
               // Get the parent panel of the button
               const parentPanel = globalThis.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
               // Modify the width of the parent panel
-              parentPanel.style.height = '400px';
+              parentPanel.style.height = '200px';
               let popup = tmpl_popup.content.cloneNode(true);
               globalThis.shadowRoot.appendChild(popup);
               let StepLogButton = globalThis.shadowRoot.getElementById('StepLogButton');
               let cancelButton = globalThis.shadowRoot.getElementById('cancelButton');
-  
-          let dropdown =  globalThis.shadowRoot.getElementById('stepType');
-          let businessComment =  globalThis.shadowRoot.getElementById('business-comment');
-  
-          dropdown.addEventListener('change', () => {
-            if (dropdown.value === 'Sequence') {
-              businessComment.style.display = 'block';
-            } else {
-              businessComment.style.display = 'none';
-            }
-          });
                 
           StepLogButton.addEventListener("click", () => {
             
@@ -308,15 +291,6 @@
            // Get the value entered by the user
            const commentValue = commentTextArea.value;
            // Check the selected value in the Type selection -> If the user has selected Sequence then read the value present in the comment area for business
-           const  dropdown =  globalThis.shadowRoot.getElementById('stepType');
-           var Seqflag = '';
-           if (dropdown.value === 'Sequence') 
-              {
-                const businessComment =  globalThis.shadowRoot.getElementById('businessComment');
-                // Get the value entered by the user
-                seqDes = businessComment.value;
-                Seqflag = 'X';
-              }
          
           // Get the parent panel of the button
             let lv_popup = globalThis.shadowRoot.getElementById('popup');
@@ -341,21 +315,9 @@
                   //If there are new entries -> a new step will be created corresponding to them
                   if(psNo!==reslen)
                   { 
-                     steplog.push({SequenceNo : seqNo , SequenceDesc : seqDes , StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Manual' , UserAction : commentValue , processed : ''  })
+                     steplog.push({StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Manual' , UserAction : commentValue , processed : ''  })
                     psNo = reslen ;
-                    sNo = sNo + 1;   
-                    if(Seqflag === 'X')
-                    {
-                      // Update the value of SequenceDesc for matching items
-                      steplog.forEach(item => {
-                        if (item.SequenceDesc === '') {
-                          item.SequenceDesc = seqDes;
-                        }
-                      });
-                      seqNo = seqNo + 1;
-                      seqDes = '';
-                    }  
-  
+                    sNo = sNo + 1;    
                   } 
                   //Log an empty step with just the user description
                   else
@@ -371,12 +333,10 @@
                     const minutes = now.getMinutes().toString().padStart(2, '0');
                     const seconds = now.getSeconds().toString().padStart(2, '0');
                     const currentTime = `${hours}:${minutes}:${seconds}`;
-                  //  steplog.push({SequenceNo : seqNo , SequenceDesc : seqDes , StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Manual' , UserAction : commentValue , processed : ''  })
+                  //  steplog.push({StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Manual' , UserAction : commentValue , processed : ''  })
                     steplog.push({
                       InaCall : [],
                       LogMode : 'Manual' ,
-                      SequenceDesc : seqDes , 
-                      SequenceNo : seqNo , 
                       StepDuration : 0 ,
                       StepEndId: reslen-1 ,
                       StepEndTime : currentTime,
@@ -393,18 +353,7 @@
                       processed : 'X'  })
                  
                     sNo = sNo + 1;  
-  
-                    if(Seqflag === 'X')
-                    {
-                      // Update the value of SequenceDesc for matching items
-                      steplog.forEach(item => {
-                        if (item.SequenceDesc === '') {
-                          item.SequenceDesc = seqDes;
-                        }
-                      });
-                      seqNo = seqNo + 1;
-                      seqDes = '';
-                    }           
+           
   
                   }
   
@@ -491,7 +440,7 @@
                     var hhmmss = parseInt(hours+minutes+seconds);
   
                     window.xhr_log.push({ CellArraySize : CellArraySize , NetworkInfo : 
-                    xhr_queue[o].xhr._networkInfo , SequenceMapping:0 ,StepMapping : 0 , Timestamp :
+                    xhr_queue[o].xhr._networkInfo  ,StepMapping : 0 , Timestamp :
                     xhr_queue[o].xhr._timestamp , StartTime : hhmmss ,
                     Userfriendly : xhr_queue[o].xhr._userFriendlyPerfData ,
                     PerformanceAnalysis :PerfAnalysis,
@@ -559,37 +508,11 @@
           if(window.widgetmode === 2)
           {
           var button_text = divs[0].shadowRoot.getElementById('newBTN');
-          if(button_text !== 'Log new Step')
-          {
-          //Increase the Sequence Counter :
-          if(seqNo === 0)
-          {
-            seqNo = seqNo + 1;
-          }
-          else
-          {
-          seqNo = steplog[steplog.length - 1].SequenceNo + 1 ;
-          seqDes = '';
-          }
-          }        
           button_text.textContent = 'Log new Step';
           }
           else
           {
             var button_text = divs[0].shadowRoot.getElementById('newBTN');
-            if(button_text !== 'Download Logs')
-              {
-              //Increase the Sequence Counter :
-              if(seqNo === 0)
-              {
-                seqNo = seqNo + 1;
-              }
-              else
-              {
-              seqNo =  steplog[steplog.length - 1].SequenceNo + 1 ;
-              seqDes = 'Default';
-              }
-            }
             divs[0].shadowRoot.getElementById('newBTN').textContent = 'Download Logs';     
           }
         }
@@ -630,7 +553,7 @@
              // Modify the width of the parent panel
               parentPanel.style.height = '100px';
               //Trigger the event to log a step 
-              loc_this.fireStepLogger(commentValue , Seqflag);
+              loc_this.fireStepLogger(commentValue);
           });
   
           cancelButton.addEventListener("click", () => {
@@ -645,7 +568,7 @@
         }
         
         // When the mode is to create a Manual Step
-        fireStepLogger(commentValue , Seqflag)
+        fireStepLogger(commentValue)
         {
           setTimeout(function() 
                 {              
@@ -661,21 +584,10 @@
                     //If there are new entries -> a new step will be created corresponding to them
                     if(psNo!==reslen)
                     {                                         
-                      steplog.push({SequenceNo : seqNo , SequenceDesc : seqDes ,  StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Manual' , UserAction : commentValue , processed : ''  })
+                      steplog.push({ StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Manual' , UserAction : commentValue , processed : ''  })
                       psNo = reslen ;
                       sNo = sNo + 1;
-                      
-                      if(Seqflag === 'X')
-                      {
-                        // Update the value of SequenceDesc for matching items
-                        steplog.forEach(item => {
-                          if (item.SequenceDesc === '') {
-                            item.SequenceDesc = seqDes;
-                          }
-                        });
-                        seqNo = seqNo + 1;
-                        seqDes = '';
-                      }                            
+                                               
                     } 
   
                     //Log an empty step with just the user description
@@ -695,9 +607,7 @@
                   //  steplog.push({SequenceNo : seqNo , SequenceDesc : seqDes , StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Manual' , UserAction : commentValue , processed : ''  })
                     steplog.push({
                       InaCall : [],
-                      LogMode : 'Manual' ,
-                      SequenceDesc : seqDes , 
-                      SequenceNo : seqNo , 
+                      LogMode : 'Manual' , 
                       StepDuration : 0 ,
                       StepEndId: reslen-1 ,
                       StepEndTime : currentTime,
@@ -713,21 +623,9 @@
                       Widgetinfo :[],
                       processed : 'X'  })
                  
-                    sNo = sNo + 1;  
+                    sNo = sNo + 1;             
   
-                    if(Seqflag === 'X')
-                    {
-                      // Update the value of SequenceDesc for matching items
-                      steplog.forEach(item => {
-                        if (item.SequenceDesc === '') {
-                          item.SequenceDesc = seqDes;
-                        }
-                      });
-                      seqNo = seqNo + 1;
-                      seqDes = '';
-                    }           
-  
-                  }
+                  }7
                   //process the unprocessed records in the XHR log Queue
                   globalThis.processlogvariable();
                }, 700);
@@ -778,11 +676,11 @@
                     {
                      if( widgetmode === 1 )
                      {
-                      steplog.push({SequenceNo : seqNo ,SequenceDesc : seqDes ,  StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Auto', processed : ''  })
+                      steplog.push({StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Auto', processed : ''  })
                      }
                       else 
                       {
-                        steplog.push({SequenceNo : seqNo , SequenceDesc : seqDes ,  StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Manual', processed : ''  })
+                        steplog.push({StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Manual', processed : ''  })
                       }
                       psNo = reslen ;
                       sNo = sNo + 1;       
@@ -866,8 +764,6 @@
                   var xhr_log_filter = xhr_log.filter( e => e.StartTime > PreviousEndtime  && e.StartTime <= CurrentEndtime  );
                   xhr_log_filter .forEach(function(filteredElement, index) {
                     xhr_log[xhr_log.indexOf(filteredElement)].StepMapping = steplog[i].StepNo;
-                    xhr_log[xhr_log.indexOf(filteredElement)].SequenceMapping = steplog[i].SequenceNo;
-                    xhr_log[xhr_log.indexOf(filteredElement)].SequenceDesc = steplog[i].SequenceDesc;
                 });
                   PreviousEndtime = parseInt(hhmmss);  
                 // Calculate the sum based on the filterd array 
@@ -923,7 +819,7 @@
                 }   
                 }
               //create a local copy for download which is not soo detailed       
-                local_log.push({SequenceNo : steplog[i].SequenceNo  ,SequenceDesc : steplog[i].SequenceDesc ,StepNo : steplog[i].StepNo, StepStartDate : steplog[i].StepStartDate ,  StepStartTime : steplog[i].StepStartTime , StepEndTime : steplog[i].StepEndTime , StepDuration : parseInt(steplog[i].StepDuration) , UserAction : steplog[i].UserAction , TotalCellArrayCount: steplog[i].TotalCellArrayCount , TotalBytes : steplog[i].TotalBytes , InaCount : steplog[i].InaCall.length, WidgetCount : steplog[i].Widgetinfo.length }) ;
+                local_log.push({StepNo : steplog[i].StepNo, StepStartDate : steplog[i].StepStartDate ,  StepStartTime : steplog[i].StepStartTime , StepEndTime : steplog[i].StepEndTime , StepDuration : parseInt(steplog[i].StepDuration) , UserAction : steplog[i].UserAction , TotalCellArrayCount: steplog[i].TotalCellArrayCount , TotalBytes : steplog[i].TotalBytes , InaCount : steplog[i].InaCall.length, WidgetCount : steplog[i].Widgetinfo.length }) ;
   
                 }         
   
@@ -1040,7 +936,7 @@
         JSON2CSV(objArray) {
          var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
           // Set the column headers
-         var str = 'SequenceNo,SequenceDescription,StepNo,StepStartDate,StepStartTime,StepEndTime,StepDuration,UserAction,TotalCellArrayCount,TotalBytes,NumberOfINAcalls,TotalWidgetAffected\r\n';    
+         var str = 'StepNo,StepStartDate,StepStartTime,StepEndTime,StepDuration,UserAction,TotalCellArrayCount,TotalBytes,NumberOfINAcalls,TotalWidgetAffected\r\n';    
         for (var i = 0; i < array.length; i++) {
           var line = '';
           for (var index in array[i]) {
@@ -1053,7 +949,7 @@
       }   
     }
       
-    customElements.define('del-perfhelper_julian', PerformanceHelper_julian);
+    customElements.define('del-perfhelper_julian', PerformanceHelper_Julian);
     
     addXMLRequestCallback( xhr => {
         if(xhr._requestUrl.includes('GetResponse') )
