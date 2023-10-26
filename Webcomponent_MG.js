@@ -563,6 +563,8 @@ tmpl_popup.innerHTML = `
           const parentPanel = loc_this.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
           // Modify the width of the parent panel
            parentPanel.style.height = '100px';
+		parentPanel.style.zIndex = 10;
+
         });
       }
       }
