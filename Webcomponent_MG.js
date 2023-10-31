@@ -298,6 +298,7 @@ tmpl_popup.innerHTML = `
            const parentPanel = globalThis.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
            // Modify the width of the parent panel
             parentPanel.style.height = '100px';
+		parentPanel.style.zIndex = '99';
             //Trigger the event to log a step 
             // Log a new step
 
@@ -370,6 +371,7 @@ tmpl_popup.innerHTML = `
           const parentPanel = globalThis.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
           // Modify the width of the parent panel
            parentPanel.style.height = '100px';
+		  parentPanel.style.zIndex = '99';
         });
 
           }
@@ -528,7 +530,7 @@ tmpl_popup.innerHTML = `
         let popup = tmpl_popup.content.cloneNode(true);
         loc_this.shadowRoot.appendChild(popup);
         let lv_popup = globalThis.shadowRoot.getElementById('popup');
-        lv_popup.style.zIndex = 10;
+        lv_popup.style.zIndex = "99";
         let StepLogButton = loc_this.shadowRoot.getElementById('StepLogButton');
         let cancelButton = loc_this.shadowRoot.getElementById('cancelButton');
 
@@ -552,6 +554,7 @@ tmpl_popup.innerHTML = `
            const parentPanel = loc_this.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
            // Modify the width of the parent panel
             parentPanel.style.height = '100px';
+		parentPanel.style.zIndex = '99';
             //Trigger the event to log a step 
             loc_this.fireStepLogger(commentValue);
         });
@@ -563,7 +566,7 @@ tmpl_popup.innerHTML = `
           const parentPanel = loc_this.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
           // Modify the width of the parent panel
            parentPanel.style.height = '100px';
-		parentPanel.style.zIndex = 10;
+		parentPanel.style.zIndex = 99;
 
         });
       }
