@@ -262,7 +262,7 @@ tmpl_popup.innerHTML = `
             button_ref.addEventListener("click", event => {
             var event = new Event("onClick");
             // Get the parent panel of the button
-            const parentPanel = this.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
+            const parentPanel = this.parentNode.parentNode.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
             // Modify the width of the parent panel
              parentPanel.style.height = '200px';
 		    parentPanel.style.zIndex='99';
@@ -277,7 +277,7 @@ tmpl_popup.innerHTML = `
           {
 
             // Get the parent panel of the button
-            const parentPanel = globalThis.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
+            const parentPanel = globalThis.parentNode.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
             // Modify the width of the parent panel
             parentPanel.style.height = '200px';
 	parentPanel.style.zIndex='99';
@@ -297,7 +297,7 @@ tmpl_popup.innerHTML = `
         // Get the parent panel of the button
           let lv_popup = globalThis.shadowRoot.getElementById('popup');
           globalThis.shadowRoot.removeChild(lv_popup);   
-           const parentPanel = globalThis.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
+           const parentPanel = globalThis.parentNode.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
            // Modify the width of the parent panel
             parentPanel.style.height = '100px';
 		parentPanel.style.zIndex = '99';
@@ -370,7 +370,7 @@ tmpl_popup.innerHTML = `
           let lv_popup = globalThis.shadowRoot.getElementById('popup');
           globalThis.shadowRoot.removeChild(lv_popup);
           // Get the parent panel of the button
-          const parentPanel = globalThis.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
+          const parentPanel = globalThis.parentNode.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
           // Modify the width of the parent panel
            parentPanel.style.height = '100px';
 		  parentPanel.style.zIndex = '99';
@@ -553,7 +553,7 @@ tmpl_popup.innerHTML = `
           let lv_popup = loc_this.shadowRoot.getElementById('popup');
           loc_this.shadowRoot.removeChild(lv_popup);
            // Get the parent panel of the button
-           const parentPanel = loc_this.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
+           const parentPanel = loc_this.parentNode.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
            // Modify the width of the parent panel
             parentPanel.style.height = '100px';
 		parentPanel.style.zIndex = '99';
@@ -565,7 +565,7 @@ tmpl_popup.innerHTML = `
           let lv_popup = loc_this.shadowRoot.getElementById('popup');
           loc_this.shadowRoot.removeChild(lv_popup);
           // Get the parent panel of the button
-          const parentPanel = loc_this.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
+          const parentPanel = loc_this.parentNode.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
           // Modify the width of the parent panel
            parentPanel.style.height = '100px';
 		parentPanel.style.zIndex = 99;
