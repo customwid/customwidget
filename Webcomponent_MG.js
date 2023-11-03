@@ -27,7 +27,7 @@ tmpl_b.innerHTML = `
 <style>
   #newBTN {
     padding: 5px 20px;
-    margin-left: 10px;
+    margin-left: 5px;
     font-size: 15px;
     background-color: #008CBA;
     color: white;
