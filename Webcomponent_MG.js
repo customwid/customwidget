@@ -8,8 +8,9 @@
   tmpl.innerHTML = `
   <style>
     #myList {
-      padding: 10px;
-      font-size: 16px;
+      padding: 5px;
+      font-size: 15px;
+      text-align: left;
       background-color: #f2f2f2;
       border: 1px solid black;
       border-radius: 5px;
@@ -25,7 +26,7 @@
 tmpl_b.innerHTML = `
 <style>
   #newBTN {
-    padding: 10px 20px;
+    padding: 5px 20px;
     margin-left: 10px;
     font-size: 16px;
     background-color: #008CBA;
