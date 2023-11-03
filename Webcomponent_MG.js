@@ -553,7 +553,7 @@ tmpl_popup.innerHTML = `
           let lv_popup = loc_this.shadowRoot.getElementById('popup');
           loc_this.shadowRoot.removeChild(lv_popup);
            // Get the parent panel of the button
-           const parentPanel = loc_this.parentNode.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
+           const parentPanel = loc_this.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
            // Modify the width of the parent panel
             parentPanel.style.height = '100px';
 		parentPanel.style.zIndex = '99';
