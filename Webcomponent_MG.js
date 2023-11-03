@@ -517,6 +517,12 @@ tmpl_popup.innerHTML = `
         {
         var button_text = divs[0].shadowRoot.getElementById('newBTN');
         button_text.textContent = 'Log new Step';
+	let globalView=document.getElementsByClassName("sapHcsShellMainContainer")[0];
+        let cwPanel=divs[0].parentNode.parentNode.parentNode;
+        globalView.appendChild(cwPanel);
+	cwPanel.style.top='100px';
+	cwPanel.style.left='400px';
+
         }
         else
         {
