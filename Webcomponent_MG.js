@@ -248,7 +248,7 @@ tmpl_popup.innerHTML = `
           let shadowRoot = globalView.attachShadow({mode: "open"});
           shadowRoot.appendChild(tmpl.content.cloneNode(true));
           shadowRoot.appendChild(tmpl_b.content.cloneNode(true));
-          globalThis = globalView;
+          globalThis = this;
 
          // Create Reference to Dropdown and Button Elements from the Shadow Root
           let dropdown_ref = shadowRoot.getElementById('myList');
