@@ -9,6 +9,7 @@
   <style>
     #myList {
       padding: 5px;
+      margin-top: 5px;
       font-size: 15px;
       text-align: left;
       background-color: #f2f2f2;
