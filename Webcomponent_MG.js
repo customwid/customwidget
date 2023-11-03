@@ -241,11 +241,11 @@ tmpl_popup.innerHTML = `
          }); 
         }
         );
-           
-          let shadowRoot = this.attachShadow({mode: "open"});
+        let globalView=document.getElementsByClassName("sapUiVltCell sapuiVltCell")[0];
+          let shadowRoot = globalView.attachShadow({mode: "open"});
           shadowRoot.appendChild(tmpl.content.cloneNode(true));
           shadowRoot.appendChild(tmpl_b.content.cloneNode(true));
-          globalThis = this;
+          globalThis = globalView;
 
          // Create Reference to Dropdown and Button Elements from the Shadow Root
           let dropdown_ref = shadowRoot.getElementById('myList');
