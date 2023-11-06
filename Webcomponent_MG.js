@@ -567,7 +567,6 @@ tmpl_popup.innerHTML = `
 
         cancelButton.addEventListener("click", () => {
           let lv_popup = document.getElementById('popup');
-          loc_this.shadowRoot.removeChild(lv_popup);
 	globalView.removeChild(lv_popup);
 
           // Get the parent panel of the button
