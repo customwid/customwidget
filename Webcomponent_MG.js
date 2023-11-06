@@ -532,28 +532,30 @@ tmpl_popup.innerHTML = `
         else
         {
         let popup = tmpl_popup.content.cloneNode(true);
-        loc_this.shadowRoot.appendChild(popup);
-        let lv_popup = globalThis.shadowRoot.getElementById('popup');
+        //loc_this.shadowRoot.appendChild(popup);
+	let globalView=document.getElementsByClassName("sapHcsShellMainContent")[0];
+        globalView.appendChild(popup);
+        let lv_popup = document.getElementById('popup');
         lv_popup.style.zIndex = "99";
-        let StepLogButton = loc_this.shadowRoot.getElementById('StepLogButton');
-        let cancelButton = loc_this.shadowRoot.getElementById('cancelButton');
+        let StepLogButton = document.getElementById('StepLogButton');
+        let cancelButton = document.getElementById('cancelButton');
 
-        let dropdown =  loc_this.shadowRoot.getElementById('stepType');
-        let businessComment =  loc_this.shadowRoot.getElementById('business-comment');
+        let dropdown =  document.getElementById('stepType');
+        //let businessComment =  loc_this.shadowRoot.getElementById('business-comment');
 
               
         StepLogButton.addEventListener("click", () => {
           // Get a reference to the comment textarea element
-          const commentTextArea =  globalThis.shadowRoot.getElementById('comment');
+          const commentTextArea =  document.getElementById('comment');
           // Get the value entered by the user
           const commentValue = commentTextArea.value;
           // Check the selected value in the Type selection -> If the user has selected Sequence then read the value present in the comment area for business
 
-          const  dropdown =  globalThis.shadowRoot.getElementById('stepType');
+          const  dropdown =  document.getElementById('stepType');
           var Seqflag = '';
 
-          let lv_popup = loc_this.shadowRoot.getElementById('popup');
-          loc_this.shadowRoot.removeChild(lv_popup);
+          let lv_popup = document.getElementById('popup');
+          globalView.removeChild(lv_popup);
            // Get the parent panel of the button
            const parentPanel = loc_this.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
            // Modify the width of the parent panel
@@ -564,13 +566,15 @@ tmpl_popup.innerHTML = `
         });
 
         cancelButton.addEventListener("click", () => {
-          let lv_popup = loc_this.shadowRoot.getElementById('popup');
+          let lv_popup = document.getElementById('popup');
           loc_this.shadowRoot.removeChild(lv_popup);
+	globalView.removeChild(lv_popup);
+
           // Get the parent panel of the button
           const parentPanel = loc_this.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
           // Modify the width of the parent panel
            parentPanel.style.height = '100px';
-		parentPanel.style.zIndex = 99;
+		parentPanel.style.zIndex = '99';
 
         });
       }
