@@ -243,9 +243,7 @@ tmpl_popup.innerHTML = `
          }); 
         }
         );
-        let globalView=document.getElementsByClassName("sapUiVltCell sapuiVltCell")[0];
-	globalView.style.left='900px'
-	globalView.style.zIndex='999'
+       
           let shadowRoot = this.attachShadow({mode: "open"});
           shadowRoot.appendChild(tmpl.content.cloneNode(true));
           shadowRoot.appendChild(tmpl_b.content.cloneNode(true));
