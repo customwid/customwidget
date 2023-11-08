@@ -8,8 +8,10 @@
   tmpl.innerHTML = `
   <style>
     #myList {
-      padding: 10px;
-      font-size: 16px;
+      padding: 5px;
+      margin-top: 5px;
+      font-size: 15px;
+      text-align: left;
       background-color: #f2f2f2;
       border: 1px solid black;
       border-radius: 5px;
@@ -25,9 +27,9 @@
 tmpl_b.innerHTML = `
 <style>
   #newBTN {
-    padding: 10px 20px;
-    margin-left: 10px;
-    font-size: 16px;
+    padding: 5px 20px;
+    margin-left: 5px;
+    font-size: 15px;
     background-color: #008CBA;
     color: white;
     border: none;
@@ -241,7 +243,7 @@ tmpl_popup.innerHTML = `
          }); 
         }
         );
-           
+       
           let shadowRoot = this.attachShadow({mode: "open"});
           shadowRoot.appendChild(tmpl.content.cloneNode(true));
           shadowRoot.appendChild(tmpl_b.content.cloneNode(true));
@@ -249,7 +251,7 @@ tmpl_popup.innerHTML = `
 
          // Create Reference to Dropdown and Button Elements from the Shadow Root
           let dropdown_ref = shadowRoot.getElementById('myList');
-            let button_ref = shadowRoot.getElementById('newBTN');
+      	  let button_ref = shadowRoot.getElementById('newBTN');
           
           // Create Event Handler for DropDown Click
           dropdown_ref.addEventListener("click", event => {
@@ -265,6 +267,7 @@ tmpl_popup.innerHTML = `
             const parentPanel = this.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
             // Modify the width of the parent panel
              parentPanel.style.height = '200px';
+		    parentPanel.style.zIndex='99';
             this.firehandler(this);           
             this.dispatchEvent(event);
             });    
@@ -279,6 +282,7 @@ tmpl_popup.innerHTML = `
             const parentPanel = globalThis.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
             // Modify the width of the parent panel
             parentPanel.style.height = '200px';
+	parentPanel.style.zIndex='99';
             let popup = tmpl_popup.content.cloneNode(true);
             globalThis.shadowRoot.appendChild(popup);
             let StepLogButton = globalThis.shadowRoot.getElementById('StepLogButton');
@@ -298,6 +302,7 @@ tmpl_popup.innerHTML = `
            const parentPanel = globalThis.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
            // Modify the width of the parent panel
             parentPanel.style.height = '100px';
+		parentPanel.style.zIndex = '99';
             //Trigger the event to log a step 
             // Log a new step
 
@@ -361,15 +366,16 @@ tmpl_popup.innerHTML = `
               globalThis.processlogvariable();
            }, 700);
 
-    });
+	});
 
-      cancelButton.addEventListener("click", () => {
+	  cancelButton.addEventListener("click", () => {
           let lv_popup = globalThis.shadowRoot.getElementById('popup');
           globalThis.shadowRoot.removeChild(lv_popup);
           // Get the parent panel of the button
           const parentPanel = globalThis.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
           // Modify the width of the parent panel
            parentPanel.style.height = '100px';
+		  parentPanel.style.zIndex = '99';
         });
 
           }
@@ -526,43 +532,49 @@ tmpl_popup.innerHTML = `
         else
         {
         let popup = tmpl_popup.content.cloneNode(true);
-        loc_this.shadowRoot.appendChild(popup);
-        let lv_popup = globalThis.shadowRoot.getElementById('popup');
-        lv_popup.style.zIndex = 10;
-        let StepLogButton = loc_this.shadowRoot.getElementById('StepLogButton');
-        let cancelButton = loc_this.shadowRoot.getElementById('cancelButton');
+        //loc_this.shadowRoot.appendChild(popup);
+	let globalView=document.getElementsByClassName("sapHcsShellMainContent")[0];
+        globalView.appendChild(popup);
+        let lv_popup = document.getElementById('popup');
+        lv_popup.style.zIndex = "99";
+        let StepLogButton = document.getElementById('StepLogButton');
+        let cancelButton = document.getElementById('cancelButton');
 
-        let dropdown =  loc_this.shadowRoot.getElementById('stepType');
-        let businessComment =  loc_this.shadowRoot.getElementById('business-comment');
+        let dropdown =  document.getElementById('stepType');
+        //let businessComment =  loc_this.shadowRoot.getElementById('business-comment');
 
               
         StepLogButton.addEventListener("click", () => {
           // Get a reference to the comment textarea element
-          const commentTextArea =  globalThis.shadowRoot.getElementById('comment');
+          const commentTextArea =  document.getElementById('comment');
           // Get the value entered by the user
           const commentValue = commentTextArea.value;
           // Check the selected value in the Type selection -> If the user has selected Sequence then read the value present in the comment area for business
 
-          const  dropdown =  globalThis.shadowRoot.getElementById('stepType');
+          const  dropdown =  document.getElementById('stepType');
           var Seqflag = '';
 
-          let lv_popup = loc_this.shadowRoot.getElementById('popup');
-          loc_this.shadowRoot.removeChild(lv_popup);
+          let lv_popup = document.getElementById('popup');
+          globalView.removeChild(lv_popup);
            // Get the parent panel of the button
            const parentPanel = loc_this.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
            // Modify the width of the parent panel
             parentPanel.style.height = '100px';
+		parentPanel.style.zIndex = '99';
             //Trigger the event to log a step 
             loc_this.fireStepLogger(commentValue);
         });
 
         cancelButton.addEventListener("click", () => {
-          let lv_popup = loc_this.shadowRoot.getElementById('popup');
-          loc_this.shadowRoot.removeChild(lv_popup);
+          let lv_popup = document.getElementById('popup');
+	globalView.removeChild(lv_popup);
+
           // Get the parent panel of the button
           const parentPanel = loc_this.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
           // Modify the width of the parent panel
            parentPanel.style.height = '100px';
+		parentPanel.style.zIndex = '99';
+
         });
       }
       }
@@ -733,7 +745,7 @@ tmpl_popup.innerHTML = `
                   if(stepduration > maxendtime ) 
                   {
                     maxendtime = stepduration ;
-                      maxstepduration =  maxendtime - stepstarttime
+              	    maxstepduration =  maxendtime - stepstarttime
                     var maxstepid = y + 1;
                   }
                 }
