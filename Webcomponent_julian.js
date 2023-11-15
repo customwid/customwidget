@@ -20,7 +20,9 @@
   <select id="myList">
     <option value="1">Auto Mode</option>  
     <option value="2">Manual Mode</option>  
+    <option value="4">Stop Watch Mode</option>
     <option value="3">Download Logs</option>   
+
   </select>
 `;
 
@@ -379,6 +381,10 @@ tmpl_popup.innerHTML = `
         });
 
           }
+        else if (event.ctrlKey && event.key === 's' && event.altKey && window.widgetmode === 4)
+        {
+          console.log("Stop-watch mode fired")
+        }
         });
 
       }
