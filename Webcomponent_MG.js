@@ -277,28 +277,32 @@ tmpl_popup.innerHTML = `
         window.document.addEventListener('keydown', function(event) {
           if (event.ctrlKey && event.key === 'l' && event.altKey && window.widgetmode === 2) 
           {
-	
+	// global view
+		      	let globalView=document.getElementsByClassName("sapHcsShellMainContent")[0];
             // Get the parent panel of the button
             const parentPanel = globalThis.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
             // Modify the width of the parent panel
             parentPanel.style.height = '200px';
 	parentPanel.style.zIndex='99';
             let popup = tmpl_popup.content.cloneNode(true);
-		globalThis.shadowRoot.appendChild(popup);
-		  let StepLogButton = globalThis.shadowRoot.getElementById('StepLogButton');
-            let cancelButton = globalThis.shadowRoot.getElementById('cancelButton');
+		globalView.appendChild(popup);
+		let lv_popup = document.getElementById('popup');
+            	lv_popup.style.zIndex = "99";
+
+		  let StepLogButton = document.getElementById('StepLogButton');
+            let cancelButton = document.getElementById('cancelButton');
               
         StepLogButton.addEventListener("click", () => {
           
-         // Get a reference to the comment textarea element
-         const commentTextArea =  globalThis.shadowRoot.getElementById('comment');
-         // Get the value entered by the user
-         const commentValue = commentTextArea.value;
+         // // Get a reference to the comment textarea element
+         // const commentTextArea =  globalThis.shadowRoot.getElementById('comment');
+         // // Get the value entered by the user
+         // const commentValue = commentTextArea.value;
          // Check the selected value in the Type selection -> If the user has selected Sequence then read the value present in the comment area for business
        
         // Get the parent panel of the button
-          let lv_popup = globalThis.shadowRoot.getElementById('popup');
-          globalThis.shadowRoot.removeChild(lv_popup);   
+          let lv_popup = document.getElementById('popup');
+          globalView.removeChild(lv_popup);   
            const parentPanel = globalThis.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
            // Modify the width of the parent panel
             parentPanel.style.height = '100px';
@@ -369,13 +373,13 @@ tmpl_popup.innerHTML = `
 	});
 
 	  cancelButton.addEventListener("click", () => {
-          let lv_popup = globalThis.shadowRoot.getElementById('popup');
-		globalThis.shadowRoot.removeChild(lv_popup);
+          let lv_popup = document.getElementById('popup');
+		globalView.removeChild(lv_popup);
 		  // Get the parent panel of the button
           const parentPanel = globalThis.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
           // Modify the width of the parent panel
            parentPanel.style.height = '100px';
-		  parentPanel.style.zIndex = '99';
+		parentPanel.style.zIndex = '99';
         });
 
           }
