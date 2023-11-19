@@ -150,7 +150,11 @@ tmpl_popup.innerHTML = `
           window.userF_queue = [];
           window.sNo = 1;
           window.psNo = 0;    
-          window.globalThis = this;    
+          window.globalThis = this;   
+          window.stopWatchActive = false;
+          window.swDuration = 0; 
+          window.sw_log = [];
+          window.sw_queue = [];
           this.init();           
       }
 
@@ -381,9 +385,29 @@ tmpl_popup.innerHTML = `
         });
 
           }
-        else if (event.ctrlKey && event.key === 's' && event.altKey && window.widgetmode === 4)
+        else if (event.ctrlKey && event.key === 'x' && event.altKey && window.widgetmode === 4)
         {
           console.log("Stop-watch mode fired")
+          if(stopWatchActive === false){
+            console.log("Stop-watch mode started")
+          stopWatchActive = true;
+          swDuration = Date.now()
+            /** here: start logging steps
+             *           
+             * window.sw_log
+             * window.sw_queue
+            **/
+          }
+          else{
+            console.log("Stop-watch mode ended")
+            stopWatchActive = false;
+            swDuration = Date.now() - swDuration;
+            console.log("swDuration: " + swDuration)
+            /** here: push swLog to stepLog
+            **/
+            swDuration = 0;
+          }
+
         }
         });
 
