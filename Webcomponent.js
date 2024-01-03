@@ -155,7 +155,7 @@ tmpl_popup.innerHTML = `
           window.swDuration = 0; 
           window.sw_log = [];
           window.sw_queue = [];
-      		isInitialized = false;
+	  window.isInitialized = false;
           this.init();           
       }
 
