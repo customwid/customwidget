@@ -155,11 +155,13 @@ tmpl_popup.innerHTML = `
           window.swDuration = 0; 
           window.sw_log = [];
           window.sw_queue = [];
+      		isInitialized = false;
           this.init();           
       }
 
       init() {            
-          
+          if(isInitialized){ return;}
+	      isInitialized = true;
          $(document).ready(function(){          
           $('html').click(async function(event){
             //add the details about the event click trigger text              
