@@ -4,6 +4,7 @@
   let tmpl = document.createElement('template');
   let tmpl_b = document.createElement('template');
   let tmpl_popup = document.createElement('template');
+  let isInitialized = false;
  
   tmpl.innerHTML = `
   <style>
@@ -139,6 +140,8 @@ tmpl_popup.innerHTML = `
 `; 
  
   class PerformanceHelper extends HTMLElement {
+	  if(isInitialized) {return;}
+	isInitialized = true;
       constructor() {
           super();
           // declare global variables to be used across the whole scope of this code
@@ -155,7 +158,6 @@ tmpl_popup.innerHTML = `
           window.swDuration = 0; 
           window.sw_log = [];
           window.sw_queue = [];
-	  window.isInitialized = false;
           this.init();           
       }
 
