@@ -387,22 +387,25 @@ tmpl_popup.innerHTML = `
           //add event listener: keyboard combination of stop-watch mode (crtl+alt+x)
         else if (event.ctrlKey && event.key === 'x' && event.altKey && window.widgetmode === 4 && !event.repeat)
         {
-          console.log("Stop-watch mode fired")
+          console.log("Stop-watch mode fired");
           if(stopWatchActive === false){
-            console.log("Stop-watch mode started")
-            swDuration = Date.now()
-            stopWatchActive = true;
+            console.log("Stop-watch mode started");
+            swDuration = Date.now();
+            setTimeout(function(){
+              stopWatchActive = true;
+            }, 1000);
             /** here: start logging steps
              *           
              * window.sw_log
              * window.sw_queue
             **/
+           
           }
-          else{
-            console.log("Stop-watch mode ended")
+          else {
+            console.log("Stop-watch mode ended");
             stopWatchActive = false;
             swDuration = Date.now() - swDuration;
-            console.log("swDuration: " + swDuration + "\n")
+            console.log("swDuration: " + swDuration + "\n");
             /** here: push swLog to stepLog
             **/
             swDuration = 0;
