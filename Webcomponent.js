@@ -138,7 +138,7 @@ tmpl_popup.innerHTML = `
 
 `; 
  
-  class PerformanceHelper_Julian extends HTMLElement {
+  class PerformanceHelper extends HTMLElement {
       constructor() {
           super();
           // declare global variables to be used across the whole scope of this code
@@ -195,7 +195,7 @@ tmpl_popup.innerHTML = `
             }
             else{
               // It will not be triggered when the user clicks the Performance Helper Button to downlaod   
-              if(widgetmode === 1 &&  event.target.tagName !== 'del-perfhelper_julian' )
+              if(widgetmode === 1 &&  event.target.tagName !== 'del-perfhelper' )
               {
               setTimeout(function() 
               {              
@@ -538,7 +538,7 @@ tmpl_popup.innerHTML = `
 
       fireDDStateChange()
       {
-        var divs = document.getElementsByTagName('del-perfhelper_julian');
+        var divs = document.getElementsByTagName('del-perfhelper');
         var dropdown_val = divs[0].shadowRoot.getElementById('myList');
         window.widgetmode = parseInt(dropdown_val.value);
         if(window.widgetmode === 2)
@@ -991,7 +991,7 @@ tmpl_popup.innerHTML = `
     }   
   }
     
-  customElements.define('del-perfhelper_julian', PerformanceHelper_Julian);
+  customElements.define('del-perfhelper', PerformanceHelper);
   
   addXMLRequestCallback( xhr => {
       if(xhr._requestUrl.includes('GetResponse') )
