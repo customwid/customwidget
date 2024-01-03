@@ -291,7 +291,7 @@ tmpl_popup.innerHTML = `
             const parentPanel = globalThis.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
             // Modify the width of the parent panel
             parentPanel.style.height = '200px';
-	parentPanel.style.zIndex='99';
+    	parentPanel.style.zIndex='99';
             let popup = tmpl_popup.content.cloneNode(true);
             globalThis.shadowRoot.appendChild(popup);
             let StepLogButton = globalThis.shadowRoot.getElementById('StepLogButton');
@@ -387,7 +387,7 @@ tmpl_popup.innerHTML = `
 		  parentPanel.style.zIndex = '99';  
         });
 
-          }
+          } //end of IF-manual mode (===2) keydown event
           //add event listener: keyboard combination of stop-watch mode (crtl+alt+x)
         else if (event.ctrlKey && event.key === 'x' && event.altKey && window.widgetmode === 4 && !event.repeat)
         {
@@ -407,15 +407,17 @@ tmpl_popup.innerHTML = `
             stopWatchActive = false;
             swDuration = Date.now() - swDuration;
             console.log("swDuration: " + swDuration + "\n");
-            /** here: push swLog to stepLog
-            **/
+/** here: push swLog to stepLog
+              ***
+**/
+              //reset swDuration
             swDuration = 0;
           }
 
         }
-        });
+        }); //end of keydown eventListener
 
-      }
+      } // end of init() function
       
       processlogvariable()
       {
@@ -620,6 +622,7 @@ tmpl_popup.innerHTML = `
       // When the mode is to create a Manual Step
       fireStepLogger(commentValue)
       {
+          let mode_title = window.widgetmode === 2 ? 'Manual' : 'Stop Watch';
         setTimeout(function() 
               {              
                                            
@@ -634,7 +637,7 @@ tmpl_popup.innerHTML = `
                   //If there are new entries -> a new step will be created corresponding to them
                   if(psNo!==reslen)
                   {                                         
-                    steplog.push({ StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Manual' , UserAction : commentValue , processed : ''  })
+                    steplog.push({ StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : mode_title , UserAction : commentValue , processed : ''  })
                     psNo = reslen ;
                     sNo = sNo + 1;
                                              
@@ -657,8 +660,8 @@ tmpl_popup.innerHTML = `
                 //  steplog.push({SequenceNo : seqNo , SequenceDesc : seqDes , StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Manual' , UserAction : commentValue , processed : ''  })
                   steplog.push({
                     InaCall : [],
-                    LogMode : 'Manual' , 
-                    StepDuration : 0 ,
+                    LogMode : mode_title , 
+                        StepDuration : 0 , //adjust this for swDuration in case mode = 4
                     StepEndId: reslen-1 ,
                     StepEndTime : currentTime,
                     StepNo:sNo , 
