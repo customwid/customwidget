@@ -279,7 +279,6 @@ tmpl_popup.innerHTML = `
             });    
             
         // Create an Event Handler for Combination of Keyboard for Alt + Ctrl + L  and Manual Mode , call the step logger
-
         window.document.addEventListener('keydown', function(event) {
           if (event.ctrlKey && event.key === 'l' && event.altKey && window.widgetmode === 2) 
           {
@@ -381,11 +380,12 @@ tmpl_popup.innerHTML = `
           const parentPanel = globalThis.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
           // Modify the width of the parent panel
            parentPanel.style.height = '100px';
-		  parentPanel.style.zIndex = '99';
+		  parentPanel.style.zIndex = '99';  
         });
 
           }
-        else if (event.ctrlKey && event.key === 'x' && event.altKey && window.widgetmode === 4)
+          //add event listener: keyboard combination of stop-watch mode (crtl+alt+x)
+        else if (event.ctrlKey && event.key === 'x' && event.altKey && window.widgetmode === 4 && !event.repeat)
         {
           console.log("Stop-watch mode fired")
           if(stopWatchActive === false){
@@ -402,7 +402,7 @@ tmpl_popup.innerHTML = `
             console.log("Stop-watch mode ended")
             stopWatchActive = false;
             swDuration = Date.now() - swDuration;
-            console.log("swDuration: " + swDuration)
+            console.log("swDuration: " + swDuration + "\n")
             /** here: push swLog to stepLog
             **/
             swDuration = 0;
