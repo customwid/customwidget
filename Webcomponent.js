@@ -546,6 +546,10 @@ tmpl_popup.innerHTML = `
         var button_text = divs[0].shadowRoot.getElementById('newBTN');
         button_text.textContent = 'Log new Step';
         }
+	else if(winfow.widgetmode === 4){ 
+          var button_text = divs[0].shadowRoot.getElementById('newBTN');
+          button_text.textContent = 'Log new Step';
+        }
         else
         {
           var button_text = divs[0].shadowRoot.getElementById('newBTN');
