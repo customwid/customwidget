@@ -390,8 +390,8 @@ tmpl_popup.innerHTML = `
           console.log("Stop-watch mode fired")
           if(stopWatchActive === false){
             console.log("Stop-watch mode started")
-          stopWatchActive = true;
-          swDuration = Date.now()
+            swDuration = Date.now()
+            stopWatchActive = true;
             /** here: start logging steps
              *           
              * window.sw_log
