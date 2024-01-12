@@ -27,7 +27,11 @@
         display: flex;
         justify-content: center;
         align-items: flex-start;
-      }  `;
+      }
+      </style>
+<div id="popup">
+    </div>
+  `;
     
 
     class Visuals extends HTMLElement{
