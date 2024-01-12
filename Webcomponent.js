@@ -291,7 +291,7 @@ tmpl_popup.innerHTML = `
             const parentPanel = globalThis.parentNode.parentNode.parentNode; // adjust the number of parent nodes according to the structure of your HTML
             // Modify the width of the parent panel
             parentPanel.style.height = '200px';
-    	parentPanel.style.zIndex='99';
+    	      parentPanel.style.zIndex='99';
             let popup = tmpl_popup.content.cloneNode(true);
             globalThis.shadowRoot.appendChild(popup);
             let StepLogButton = globalThis.shadowRoot.getElementById('StepLogButton');
@@ -393,6 +393,21 @@ tmpl_popup.innerHTML = `
         {
           if(stopWatchActive === false){
             console.log("Stop-watch mode started");
+            sap.m.MessageToast.show("Stop-watch mode startet", {
+          duration: 1500,                  // default
+          width: "15em",                   // default
+          my: "center bottom",             // default
+          at: "center bottom",             // default
+          of: window,                      // default
+          offset: "0 0",                   // default
+          collision: "fit fit",            // default
+          onClose: null,                   // default
+          autoClose: true,                 // default
+          animationTimingFunction: "ease", // default
+          animationDuration: 1000,         // default
+          closeOnBrowserNavigation: true   // default
+           });
+              
             swDuration = Date.now();
               stopWatchActive = true;
             /** here: start logging steps
@@ -403,7 +418,21 @@ tmpl_popup.innerHTML = `
            
           }
           else {
-            console.log("Stop-watch mode ended");
+        console.log("Stop-watch mode ended");
+      sap.m.MessageToast.show("Stop-watch mode ended", {
+        duration: 1500,                  // default
+        width: "15em",                   // default
+        my: "center bottom",             // default
+        at: "center bottom",             // default
+        of: window,                      // default
+        offset: "0 0",                   // default
+        collision: "fit fit",            // default
+        onClose: null,                   // default
+        autoClose: true,                 // default
+        animationTimingFunction: "ease", // default
+        animationDuration: 1000,         // default
+        closeOnBrowserNavigation: true   // default
+        });
             stopWatchActive = false;
             swDuration = Date.now() - swDuration;
             console.log("swDuration: " + swDuration + "\n");
