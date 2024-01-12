@@ -1,21 +1,20 @@
 {
-	"name": "mycustomwidget",
-	"description": "Hello World",
-	"newInstancePrefix": "mycustomwidget",
+	"name": "PerformanceHelper",
+	"description": "A simple app to Navigate User Actions and Trace Data Volume.",
+	"newInstancePrefix": "PerformanceHelper",
 	"eula": "",
-	"vendor": "PranavKandpal",
+	"vendor": "Deloitte | AI + Data | CADP",
 	"license": "",
-	"id": "mycustomwidget",
-	"version": "1.0.1",
+	"id": "PerformanceHelper",
+	"version": "1.0.2",
 	"icon": "",
 	"webcomponents": [
 		{
 			"kind": "main",
-			"tag": "custom-button",
-			"url": "https://customwid.github.io/customwidget.github.io/Webcomponent.js",
+			"tag": "del-perfhelper",
+			"url": "https://geniustrack.github.io/customwidget.github.io/Webcomponent.js",
 			"integrity": ""	,
 			"ignoreIntegrity": true
-			
 		}		
 	],
 	"properties": {
@@ -29,8 +28,8 @@
 		}
 	},
 	"methods": {
-		"clear": {
-			"description": "Clear the resultset"
+		"formatCSS": {
+			"description": "Define the CSS - Planned for a future Release"
 		}
 	},
 	"events": {
