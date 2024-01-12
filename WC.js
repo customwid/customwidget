@@ -33,6 +33,7 @@
     class Visuals extends HTMLElement{
         constructor(){
             super();
+            window.globalThis = this;
             this.init();
         }
         init(){
