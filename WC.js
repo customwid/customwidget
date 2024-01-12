@@ -33,7 +33,7 @@
     class Visuals extends HTMLElement{
         constructor(){
             super();
-            //window.globalThis = this;
+            window.globalThis = this;
             this.init();
         }
         init(){
@@ -49,6 +49,8 @@
         
     fireChanged(){
         console.log("OnClick Triggered.");
+        let popup=tmpl_popup.content.cloneNode(true);
+        this.shadowRoot.appendChild(popup);
     }
 }
 
