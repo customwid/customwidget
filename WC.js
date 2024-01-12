@@ -52,5 +52,5 @@
     }
 }
 
-    customElements.define(cw-simplified,Visuals);
+    customElements.define('cw-simplified',Visuals);
 })();
