@@ -13,7 +13,7 @@
       cursor: pointer;
     }
   </style>
-  <button type="button" id="newBTN">Download Logs</button>
+  <button type="button" id="newBTN">Visualize Performance</button>
   `;
     tmpl_popup.innerHTML = `
     <style>  
