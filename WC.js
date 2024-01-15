@@ -47,7 +47,11 @@
       let shadowRoot = this.attachShadow({ mode: "open" });
       shadowRoot.appendChild(tmpl_btn.content.cloneNode(true));
       shadowRoot.appendChild(tmpl_popup.content.cloneNode(true));
-      
+      this.addEventListener("click", (event) => {
+        var event = new Event("onClick");
+        this.fireChanged();
+        this.dispatchEvent(event);
+      });
       window.document.addEventListener("keydown", function (event) {
         if (event.ctrlKey && event.key === "p" && event.altKey) {
           console.log("Pop Up Opened.");
