@@ -40,7 +40,7 @@
   class Visuals extends HTMLElement {
     constructor() {
       super();
-      //window.globalThis = this;
+      window.globalThis = this;
       this.init();
     }
     init() {
@@ -52,14 +52,22 @@
         this.fireChanged();
         this.dispatchEvent(event);
       });
-    }
-
-    fireChanged() {
-      console.log("OnClick Triggered.");
-      let popup = tmpl_popup.content.cloneNode(true);
-      this.shadowRoot.appendChild(popup);
+      window.document.addEventListener("keydown", function (event) {
+        if (event.ctrlKey && event.key === "p" && event.altKey) {
+          console.log("Pop Up Opened.");
+          let popup = tmpl_popup.content.cloneNode(true);
+          //this.shadowRoot.appendChild(popup);
+          let globalView = document.getElementsByClassName(
+            "sapHcsShellMainContent"
+          )[0];
+          globalView.appendChild(popup);
+          let lv_popup = document.getElementById("popup");
+          lv_popup.style.zIndex = "99";
+          lv_popup.style.height = "500px";
+          lv_popup.style.width = "500px";
+        }
+      });
     }
   }
-
   customElements.define("cw-simplified", Visuals);
 })();
