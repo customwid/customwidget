@@ -60,11 +60,12 @@
           let globalView = document.getElementsByClassName(
             "sapHcsShellMainContent"
           )[0];
-          globalView.appendChild(popup);
-          let lv_popup = document.getElementById("popup");
-          lv_popup.style.zIndex = "99";
-          lv_popup.style.height = "500px";
-          lv_popup.style.width = "500px";
+let cw= document.getElementsByClassName("sapCustomWidgetWebComponent")[1];
+  let parentPanel = cw.parentNode.parentNode.parentNode;
+          globalView.appendChild(parentPanel);
+          parentPanel.style.zIndex = "99";
+          parentPanel.style.height = "500px";
+          parentPanel.style.width = "500px";
         }
       });
     }
