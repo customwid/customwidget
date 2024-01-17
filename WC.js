@@ -16,7 +16,18 @@
   <button type="button" id="newBTN">Visualize Performance</button>
   `;
   tmpl_popup.innerHTML = `
-    <style>  
+    <style>
+    #popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
       #popup-content {
         background-color: white;
         padding: 20px;
@@ -34,9 +45,11 @@
         margin-bottom: 10px;
       }
       </style>
-  <div id="popup-content">
-   <span> Performance Visualizations:</span>
+      <div id="popup">
+        <div id="popup-content">
+         <span> Performance Visualizations:</span>
    </div>
+    </div>
   `;
 
   class Visuals extends HTMLElement {
