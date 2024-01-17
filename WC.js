@@ -62,7 +62,7 @@
           let globalView = document.getElementsByClassName(
             "sapHcsShellMainContent"
           )[0];
-let cw= document.getElementsByClassName("sapCustomWidgetWebComponent")[1];
+let cw= document.getElementsByClassName("sapCustomWidgetWebComponent")[0];
   let parentPanel = cw.parentNode.parentNode.parentNode;
           globalView.appendChild(parentPanel);
           parentPanel.style.zIndex = "99";
