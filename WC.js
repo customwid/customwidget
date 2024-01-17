@@ -19,8 +19,9 @@
     <style>
     #popup {
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 10px;
+      bottom: 10px
+      left: 10px;
       width: 100%;
       height: 100%;
       background-color: rgba(0, 0, 0, 0.5);
@@ -77,8 +78,8 @@ let cw= document.getElementsByClassName("sapCustomWidgetWebComponent")[0];
   let parentPanel = cw.parentNode.parentNode.parentNode;
           globalView.appendChild(parentPanel);
           parentPanel.style.zIndex = "99";
-          //parentPanel.style.height = "500px";
-          //parentPanel.style.width = "500px";
+          parentPanel.style.height = "500px";
+          parentPanel.style.width = "500px";
         }
       });
     }
