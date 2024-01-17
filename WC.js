@@ -34,6 +34,8 @@
         padding: 20px;
         border-radius: 5px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        height: 400px;
+        width: 400px;
        //  display: flex;
       //  flex-direction: column;
         align-items: center;
