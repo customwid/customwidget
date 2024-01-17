@@ -79,8 +79,8 @@ let cw= document.getElementsByClassName("sapCustomWidgetWebComponent")[0];
   let parentPanel = cw.parentNode.parentNode.parentNode;
           globalView.appendChild(parentPanel);
           parentPanel.style.zIndex = "99";
-          parentPanel.style.height = "500px";
-          parentPanel.style.width = "500px";
+          //parentPanel.style.height = "500px";
+          //parentPanel.style.width = "500px";
         }
       });
     }
