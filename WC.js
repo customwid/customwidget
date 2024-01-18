@@ -24,9 +24,9 @@
   <div id="popup-content">
    <span> Performance Visualizations:</span>
    </div>
-      </div>
+   </div>
   `;
-  script.innerHTML = `<script
+  script.innerHTML = `<script 
   src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
   </script>`;
 
@@ -57,6 +57,7 @@
           )[0];
           let parentPanel = cw.parentNode.parentNode.parentNode;
           globalView.appendChild(parentPanel);
+          globalView.appendChild(script);
           parentPanel.style.zIndex = "99";
           parentPanel.style.height = "500px";
           parentPanel.style.width = "500px";
@@ -64,7 +65,7 @@
           aDatasets2 = [20, 30, 40, 50, 60, 20, 25];
           aDatasets3 = [30, 20, 25, 65, 90, 34, 20];
 
-          var ctx = document.getElementById("script");
+          var ctx = document.getElementById("src");
 
           console.log(["ctw:", ctx]);
 
