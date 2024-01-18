@@ -27,7 +27,7 @@
    </div>
   `;
   script.innerHTML = `<script 
-  src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+  var src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
   </script>`;
 
   class Visuals extends HTMLElement {
@@ -38,6 +38,7 @@
     }
     init() {
       let shadowRoot = this.attachShadow({ mode: "open" });
+      shadowRoot.appendChild(tmpl_btn.content.cloneNode(true));
       shadowRoot.appendChild(tmpl_popup.content.cloneNode(true));
       this.addEventListener("click", (event) => {
         var event = new Event("onClick");
@@ -61,9 +62,9 @@
           parentPanel.style.zIndex = "99";
           parentPanel.style.height = "500px";
           parentPanel.style.width = "500px";
-          aDatasets1 = [65, 59, 80, 81, 56, 55, 40];
-          aDatasets2 = [20, 30, 40, 50, 60, 20, 25];
-          aDatasets3 = [30, 20, 25, 65, 90, 34, 20];
+          var aDatasets1 = [65, 59, 80, 81, 56, 55, 40];
+          var aDatasets2 = [20, 30, 40, 50, 60, 20, 25];
+          var aDatasets3 = [30, 20, 25, 65, 90, 34, 20];
 
           var ctx = document.getElementById("src");
 
