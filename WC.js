@@ -29,7 +29,8 @@
   `;
   tmpl_chart.innerHTML =`<div id="chart">
   <div class="chartScript">
-      <script type="text/javascript">
+      <script>
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
           var chart_title = "<h4>performance visualitions:</h4>";
           var chart_text = "<p>test chart</p>";
       </script>
