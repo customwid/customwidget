@@ -67,7 +67,7 @@
           )[0];
           let parentPanel = cw.parentNode.parentNode.parentNode;
           globalView.appendChild(parentPanel);
-          globalView.appendChild(script);
+          //globalView.appendChild(script);
           parentPanel.style.zIndex = "99";
           parentPanel.style.height = "500px";
           parentPanel.style.width = "500px";
