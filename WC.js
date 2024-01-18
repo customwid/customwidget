@@ -56,6 +56,8 @@
         if (event.ctrlKey && event.key === "p" && event.altKey) {
           console.log("Pop Up Opened.");
           let popup = tmpl_popup.content.cloneNode(true);
+          let chart = tmpl_chart.content.cloneNode(true);
+
           //this.shadowRoot.appendChild(popup);
           let globalView = document.getElementsByClassName(
             "sapHcsShellMainContent"
