@@ -24,6 +24,7 @@
   <div id="popup-content">
    <span> Performance Visualizations:</span>
    </div>
+      </div>
   `;
   script.innerHTML = `<script
   src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
