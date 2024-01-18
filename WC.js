@@ -1,41 +1,16 @@
 (function () {
-  let tmpl_btn = document.createElement("template");
+  var script = document.createElement("script");
   let tmpl_popup = document.createElement("template");
-  tmpl_btn.innerHTML = `<style>
-    #newBTN {
-      padding: 5px 20px;
-      margin-left: 5px;
-      font-size: 15px;
-      background-color: #008CBA;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-  </style>
-  <button type="button" id="newBTN">Visualize Performance</button>
-  `;
+
   tmpl_popup.innerHTML = `
-    <style>
-    #popup {
-      position: fixed;
-      top: 10px;
-      bottom: 10px
-      left: 10px;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-    }
+    <style>  
       #popup-content {
         background-color: white;
         padding: 20px;
         border-radius: 5px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        height: 400px;
-        width: 400px;
+        height: 500px;
+        width: 500px;
        //  display: flex;
       //  flex-direction: column;
         align-items: center;
@@ -46,12 +21,13 @@
         margin-bottom: 10px;
       }
       </style>
-      <div id="popup">
-        <div id="popup-content">
-         <span> Performance Visualizations:</span>
+  <div id="popup-content">
+   <span> Performance Visualizations:</span>
    </div>
-    </div>
   `;
+  script.innerHTML = `<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+  </script>`;
 
   class Visuals extends HTMLElement {
     constructor() {
@@ -76,12 +52,110 @@
           let globalView = document.getElementsByClassName(
             "sapHcsShellMainContent"
           )[0];
-let cw= document.getElementsByClassName("sapCustomWidgetWebComponent")[0];
-  let parentPanel = cw.parentNode.parentNode.parentNode;
+          let cw = document.getElementsByClassName(
+            "sapCustomWidgetWebComponent"
+          )[0];
+          let parentPanel = cw.parentNode.parentNode.parentNode;
           globalView.appendChild(parentPanel);
           parentPanel.style.zIndex = "99";
           parentPanel.style.height = "500px";
           parentPanel.style.width = "500px";
+          aDatasets1 = [65, 59, 80, 81, 56, 55, 40];
+          aDatasets2 = [20, 30, 40, 50, 60, 20, 25];
+          aDatasets3 = [30, 20, 25, 65, 90, 34, 20];
+
+          var ctx = document.getElementById("script");
+
+          console.log(["ctw:", ctx]);
+
+          var myChart = new Chart(ctx, {
+            type: "bar",
+            data: {
+              labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+
+              datasets: [
+                {
+                  label: "Result",
+                  fill: false,
+                  data: aDatasets1,
+                  backgroundColor: "#E91E63",
+                  borderColor: [
+                    "rgba(255,99,132,1)",
+                    "rgba(255,99,132,1)",
+                    "rgba(255,99,132,1)",
+                    "rgba(255,99,132,1)",
+                    "rgba(255,99,132,1)",
+                    "rgba(255,99,132,1)",
+                  ],
+                  borderWidth: 1,
+                },
+
+                {
+                  label: "Attendance",
+                  fill: false,
+                  data: aDatasets2,
+                  backgroundColor: "#3F51B5",
+                  borderColor: [
+                    "rgba(255,99,132,1)",
+                    "rgba(255,99,132,1)",
+                    "rgba(255,99,132,1)",
+                    "rgba(255,99,132,1)",
+                    "rgba(255,99,132,1)",
+                    "rgba(255,99,132,1)",
+                  ],
+                  borderWidth: 1,
+                },
+                {
+                  label: ["score"],
+                  data: aDatasets3,
+                  fill: false,
+                  backgroundColor: "#004D40",
+                  borderColor: [
+                    "rgba(255,99,132,1)",
+                    "rgba(255,99,132,1)",
+                    "rgba(255,99,132,1)",
+                    "rgba(255,99,132,1)",
+                    "rgba(255,99,132,1)",
+                    "rgba(255,99,132,1)",
+                  ],
+                  borderWidth: 1,
+                },
+              ],
+            },
+            options: {
+              scales: {
+                yAxes: [
+                  {
+                    ticks: {
+                      beginAtZero: true,
+                    },
+                  },
+                ],
+              },
+              title: {
+                display: true,
+                text: "Nishi IT Institute",
+              },
+              responsive: true,
+
+              tooltips: {
+                callbacks: {
+                  labelColor: function (tooltipItem, chart) {
+                    return {
+                      borderColor: "rgb(255, 0, 20)",
+                      backgroundColor: "rgb(255,20, 0)",
+                    };
+                  },
+                },
+              },
+              legend: {
+                labels: {
+                  // This more specific font property overrides the global property
+                  fontColor: "red",
+                },
+              },
+            },
+          });
         }
       });
     }
