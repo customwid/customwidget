@@ -1,6 +1,7 @@
 (function () {
   var script = document.createElement("script");
   let tmpl_popup = document.createElement("template");
+  let tmpl_chart = document.createElement("template");
 
   tmpl_popup.innerHTML = `
     <style>  
@@ -26,9 +27,14 @@
    </div>
    </div>
   `;
-  script.innerHTML = `<script 
-  var src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
-  </script>`;
+  tmpl_chart.innerHTML =`<div id="chart">
+  <div class="chartScript">
+      <script type="text/javascript">
+          var chart_title = "<h4>performance visualitions:</h4>";
+          var chart_text = "<p>test chart</p>";
+      </script>
+  </div>
+</div>`;
 
   class Visuals extends HTMLElement {
     constructor() {
@@ -38,6 +44,7 @@
     }
     init() {
       let shadowRoot = this.attachShadow({ mode: "open" });
+      shadowRoot.appendChild(tmpl_btn.content.cloneNode(true));
       shadowRoot.appendChild(tmpl_popup.content.cloneNode(true));
       this.addEventListener("click", (event) => {
         var event = new Event("onClick");
@@ -65,7 +72,7 @@
           var aDatasets2 = [20, 30, 40, 50, 60, 20, 25];
           var aDatasets3 = [30, 20, 25, 65, 90, 34, 20];
 
-          var ctx = document.getElementById("src");
+          var ctx = document.getElementById("chart");
 
           console.log(["ctw:", ctx]);
 
