@@ -1,6 +1,7 @@
 (function () {
   let template = document.createElement("template");
-  template.innerHTML = `
+  template.innerHTML = `<stlyle>
+    </style>
      <div class="container" style='display: block'>
   <canvas id="myChart" width="600" height="400"></canvas>
         <script src='https://cdn.jsdelivr.net/npm/chart.js'></script>
