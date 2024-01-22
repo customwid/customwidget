@@ -3,7 +3,7 @@
   template.innerHTML = `
      <div class="container" style='display: block'>
   <canvas id="myChart" width="600" height="400"></canvas>
-        <script src='https://cdn.jsdelivr.net/npm/chart.js'></script>
+        <script defer> src='https://cdn.jsdelivr.net/npm/chart.js'</script>
     </div>`;
   class Visuals extends HTMLElement {
     constructor() {
