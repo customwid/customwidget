@@ -4,6 +4,8 @@
   <canvas id="myChart"></canvas>
 </div>
 
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *;**script-src 'self' http://onlineerp.solution.quebec 'unsafe-inline' 'unsafe-eval';** ">
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
