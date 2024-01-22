@@ -11,9 +11,6 @@
   class Visuals extends HTMLElement {
     constructor() {
       super();
-      this.init();
-    }
-    init() {
       let shadowRoot = this.attachShadow({ mode: "open" });
       shadowRoot.appendChild(template.content.cloneNode(true));
       this.addEventListener("click", (event) => {
@@ -35,7 +32,6 @@
           ],
         },
       });
-    }
-  }
+    }}
   customElements.define("cw-simplified", Visuals);
 })();
