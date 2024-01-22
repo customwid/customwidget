@@ -1,6 +1,19 @@
 (function () {
   let template = document.createElement("template");
-  template.innerHTML = `<canvas id="myChart"></canvas>
+  template.innerHTML = `<style>  
+  #popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  </style>
+  <canvas id="myChart"></canvas>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
      
