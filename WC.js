@@ -11,10 +11,6 @@
       super();
       let shadowRoot = this.attachShadow({ mode: "open" });
       shadowRoot.appendChild(template.content.cloneNode(true));
-      this.addEventListener("click", (event) => {
-        var event = new Event("onClick");
-        this.dispactchEvent(event);
-      });
       const ctx = document.getElementById("myChart");
   // new Chart(ctx, {
   //       type: "bar",
