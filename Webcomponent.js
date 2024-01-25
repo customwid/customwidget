@@ -833,7 +833,9 @@ tmpl_popup.innerHTML = `
             tmp_duration = sw_log[j].swDuration
         }
     }
-steplog[i].StepDuration === tmp_duration;
+steplog[i].StepDuration = tmp_duration;
+steplog[i].StepSnapshot[0].duration = tmp_duration;
+steplog[i].StepSnapshot[0].customInfo = "Captured with Stop Watch mode";
 }
                 else
                 {
