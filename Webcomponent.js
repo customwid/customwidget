@@ -829,13 +829,13 @@ tmpl_popup.innerHTML = `
 else if(steplog[i].LogMode === 'Stop Watch'){
     var tmp_duration = 0;
     for(var j = 0; j < sw_log.length; j++){
-        if(sw_log[j].sNo === steplog[i].sNo){
+        if(sw_log[j].StepNo === steplog[i].StepNo){
             tmp_duration = sw_log[j].Duration
         }
     }
 steplog[i].StepDuration = tmp_duration;
 steplog[i].StepSnapshot[0].duration = tmp_duration;
-steplog[i].StepSnapshot[0].customInfo = "Captured with Stop Watch mode";
+steplog[i].StepSnapshot[0].customInfo.additionalRemark = "Captured with Stop Watch mode";
 }
                 else
                 {
