@@ -393,7 +393,7 @@ tmpl_popup.innerHTML = `
         {
           if(stopWatchActive === false){
             console.log("Stop-watch mode started");
-            sap.m.MessageToast.show("Stop-watch mode startet", {
+     sap.m.MessageToast.show("Stop-watch mode startet", {
           duration: 1500,                  // default
           width: "15em",                   // default
           my: "center bottom",             // default
@@ -407,7 +407,6 @@ tmpl_popup.innerHTML = `
           animationDuration: 1000,         // default
           closeOnBrowserNavigation: true   // default
            });
-              
             swDuration = Date.now();
               stopWatchActive = true;
             /** here: start logging steps
@@ -418,8 +417,8 @@ tmpl_popup.innerHTML = `
            
           }
           else {
-        console.log("Stop-watch mode ended");
-      sap.m.MessageToast.show("Stop-watch mode ended", {
+            console.log("Stop-watch mode ended");
+	  sap.m.MessageToast.show("Stop-watch mode ended", {
         duration: 1500,                  // default
         width: "15em",                   // default
         my: "center bottom",             // default
@@ -436,9 +435,9 @@ tmpl_popup.innerHTML = `
             stopWatchActive = false;
             swDuration = Date.now() - swDuration;
             console.log("swDuration: " + swDuration + "\n");
-/** here: push swLog to stepLog
-              ***
-**/
+         sw_log.push({StepNo:sNo , StepStartId: psNo , 
+                      StartTime: Date.now() - swDuration, EndTime: Date.now(), Duration: swDuration,
+                      LogMode : 'Stop Watch' , processed : ''  })
               //reset swDuration
             swDuration = 0;
           }
@@ -760,6 +759,9 @@ tmpl_popup.innerHTML = `
                    {
                     steplog.push({StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Auto', processed : ''  })
                    }
+		else if(widgetmode === 4){
+		steplog.push({StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Stop Watch', processed : ''  })
+                   } 
                     else 
                     {
                       steplog.push({StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Manual', processed : ''  })
@@ -824,6 +826,17 @@ tmpl_popup.innerHTML = `
                 {
                   steplog[i].StepDuration =  maxstepduration - lag;
                 }
+else if(steplog[i].LogMode === 'Stop Watch'){
+    var tmp_duration = 0;
+    for(var j = 0; j < sw_log.length; j++){
+        if(sw_log[j].StepNo === steplog[i].StepNo){
+            tmp_duration = sw_log[j].Duration
+        }
+    }
+steplog[i].StepDuration = tmp_duration;
+steplog[i].StepSnapshot[0].duration = tmp_duration;
+steplog[i].StepSnapshot[0].customInfo.additionalRemark = "Captured with Stop Watch mode";
+}
                 else
                 {
                   steplog[i].StepDuration =  maxstepduration;
