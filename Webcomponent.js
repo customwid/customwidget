@@ -21,7 +21,6 @@
   <select id="myList">
     <option value="1">Auto Mode</option>  
     <option value="2">Manual Mode</option>  
-    <option value="4">Stop Watch Mode</option>
     <option value="3">Download Logs</option>   
 
   </select>
@@ -158,7 +157,9 @@ tmpl_popup.innerHTML = `
           window.swDuration = 0; 
           window.sw_log = [];
           window.sw_queue = [];
-          this.init();           
+          this.init();    
+          //the mode_titel: will be adjusted either to Manual or Manual - Stop Watch       
+          mode_title = 'Manual';
       }
 
       init() {            
@@ -367,7 +368,7 @@ tmpl_popup.innerHTML = `
                     processed : 'X'  })
                
                   sNo = sNo + 1;  
-         
+                  mode_title = 'Manual';    
 
                 }
 
@@ -389,11 +390,11 @@ tmpl_popup.innerHTML = `
 
           } //end of IF-manual mode (===2) keydown event
           //add event listener: keyboard combination of stop-watch mode (crtl+alt+x)
-        else if (event.ctrlKey && event.key === 'x' && event.altKey && window.widgetmode === 4 && !event.repeat)
+        else if (event.ctrlKey && event.key === 'x' && event.altKey && window.widgetmode === 2 && !event.repeat)
         {
           if(stopWatchActive === false){
             console.log("Stop-watch mode started");
-     sap.m.MessageToast.show("Stop-watch mode startet", {
+     sap.m.MessageToast.show("Stop-watch mode started", {
           duration: 1500,                  // default
           width: "15em",                   // default
           my: "center bottom",             // default
@@ -409,12 +410,6 @@ tmpl_popup.innerHTML = `
            });
             swDuration = Date.now();
               stopWatchActive = true;
-            /** here: start logging steps
-             *           
-             * window.sw_log
-             * window.sw_queue
-            **/
-           
           }
           else {
             console.log("Stop-watch mode ended");
@@ -437,11 +432,12 @@ tmpl_popup.innerHTML = `
             console.log("swDuration: " + swDuration + "\n");
          sw_log.push({StepNo:sNo , StepStartId: psNo , 
                       StartTime: Date.now() - swDuration, EndTime: Date.now(), Duration: swDuration,
-                      LogMode : 'Stop Watch' , processed : ''  })
+                      LogMode : 'Manual - Stop Watch' , processed : ''  })
               //reset swDuration
-            swDuration = 0;
+            swDuration = 0; 
+        //Steps should log manual mode - SW
+        mode_title = 'Manual - Stop Watch';
           }
-
         }
         }); //end of keydown eventListener
 
@@ -580,10 +576,6 @@ tmpl_popup.innerHTML = `
         var button_text = divs[0].shadowRoot.getElementById('newBTN');
         button_text.textContent = 'Log new Step';
         }
-	else if(window.widgetmode === 4){ 
-          var button_text = divs[0].shadowRoot.getElementById('newBTN');
-          button_text.textContent = 'Log new Step';
-        }
         else
         {
           var button_text = divs[0].shadowRoot.getElementById('newBTN');
@@ -650,7 +642,6 @@ tmpl_popup.innerHTML = `
       // When the mode is to create a Manual Step
       fireStepLogger(commentValue)
       {
-          let mode_title = window.widgetmode === 2 ? 'Manual' : 'Stop Watch';
         setTimeout(function() 
               {              
                                            
@@ -689,7 +680,7 @@ tmpl_popup.innerHTML = `
                   steplog.push({
                     InaCall : [],
                     LogMode : mode_title , 
-                        StepDuration : 0 , //adjust this for swDuration in case mode = 4
+                    StepDuration : 0 ,
                     StepEndId: reslen-1 ,
                     StepEndTime : currentTime,
                     StepNo:sNo , 
@@ -759,8 +750,9 @@ tmpl_popup.innerHTML = `
                    {
                     steplog.push({StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Auto', processed : ''  })
                    }
-		else if(widgetmode === 4){
-		steplog.push({StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Stop Watch', processed : ''  })
+                   //TODO: remove and incorporate in manual mode = 2 
+		else if(widgetmode === 2 & mode_title === 'Manual - Stop Watch'){
+		steplog.push({StepNo:sNo , StepStartId: psNo ,StepEndId: reslen-1 , StepSnapshot:lv_result.slice(psNo,reslen) , LogMode : 'Manual - Stop Watch', processed : ''  })
                    } 
                     else 
                     {
@@ -821,7 +813,6 @@ tmpl_popup.innerHTML = `
                     var maxstepid = y + 1;
                   }
                 }
-                //steplog[i].StepDuration =  maxstepduration;
                 if(steplog[i].LogMode === 'Manual')
                 {
                   steplog[i].StepDuration =  maxstepduration - lag;
@@ -834,8 +825,8 @@ else if(steplog[i].LogMode === 'Stop Watch'){
         }
     }
 steplog[i].StepDuration = tmp_duration;
-steplog[i].StepSnapshot[0].duration = tmp_duration;
-steplog[i].StepSnapshot[0].customInfo.additionalRemark = "Captured with Stop Watch mode";
+//add for analysis
+steplog[i].StepSnapshot.additionalRemark = "Captured with Stop-Watch mode";
 }
                 else
                 {
