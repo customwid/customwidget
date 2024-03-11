@@ -5,6 +5,7 @@
   let tmpl_b = document.createElement('template');
   let tmpl_popup = document.createElement('template');
   let isInitialized = false;
+  let mode_title = 'Manual'
  
   tmpl.innerHTML = `
   <style>
@@ -158,7 +159,7 @@ tmpl_popup.innerHTML = `
           window.sw_log = [];
           window.sw_queue = [];
           this.init();    
-          //the mode_titel: will be adjusted either to Manual or Manual - Stop Watch       
+          //the mode_title: will be adjusted either to Manual or Manual - Stop Watch       
           mode_title = 'Manual';
       }
 
