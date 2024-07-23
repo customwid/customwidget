@@ -876,8 +876,8 @@ tmpl_popup.innerHTML = `
             const response = await fetch("https://5r30vrrykh.execute-api.eu-central-1.amazonaws.com/showcase/copilot", {
               method: "POST",
               body: JSON.stringify({
-                "prompt": steplog, 
-                "token": "L0pLTgub4c1kQciBtfcPG92wExDRvOK31JSjCt0y"
+                "Step Log Data": steplog,
+                "Network Log Data": xhr_log
               })
             });
         
