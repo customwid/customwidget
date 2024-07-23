@@ -869,15 +869,15 @@ tmpl_popup.innerHTML = `
          local_this.downloadlog(steplog , 'StepLog');
          //Download Local Log 
           local_this.downloadstepbreakdown(local_this , local_log);
-          
+
         // push to aws
         async function postData() {
           try {
-            const response = await fetch("https://cvl2xo000b.execute-api.us-east-1.amazonaws.com/default/SAC-DataExtractor", {
+            const response = await fetch("https://5r30vrrykh.execute-api.eu-central-1.amazonaws.com/showcase/copilot", {
               method: "POST",
               body: JSON.stringify({
                 "prompt": steplog, 
-                "token": "Wp3zTdVa6Q4cpPa6s3vv23QKPWuRkF3l75rrIYPm"
+                "token": "L0pLTgub4c1kQciBtfcPG92wExDRvOK31JSjCt0y"
               })
             });
         
