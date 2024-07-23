@@ -869,6 +869,29 @@ tmpl_popup.innerHTML = `
          local_this.downloadlog(steplog , 'StepLog');
          //Download Local Log 
           local_this.downloadstepbreakdown(local_this , local_log);
+          
+        // push to aws
+        async function postData() {
+          try {
+            const response = await fetch("https://cvl2xo000b.execute-api.us-east-1.amazonaws.com/default/SAC-DataExtractor", {
+              method: "POST",
+              body: JSON.stringify({
+                "prompt": steplog, 
+                "token": "Wp3zTdVa6Q4cpPa6s3vv23QKPWuRkF3l75rrIYPm"
+              })
+            });
+        
+            if (!response.ok) { // Handle HTTP errors
+              throw new Error('Network response was not ok ' + response.statusText);
+            }
+        
+            const data = await response.json(); // Assuming the response is JSON
+            console.log(data); // Process the response data
+          } catch (error) {
+            console.error('There has been a problem with your fetch operation:', error);
+          }
+        }  
+        postData();
       }, 5000);
     }    
 
