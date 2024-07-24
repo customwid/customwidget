@@ -1000,7 +1000,7 @@
             }
           }
         }
-
+        
         //Download the Network log
         local_this.downloadlog(xhr_log, "NetworkCalls");
         //Download the Step log
@@ -1023,6 +1023,12 @@
               }
             );
 
+            //success message
+            if (response.ok) {
+              console.log("Fetch request was successful");
+            }
+
+            //error message
             if (!response.ok) {
               // Handle HTTP errors
               throw new Error(
