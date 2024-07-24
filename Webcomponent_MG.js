@@ -1034,6 +1034,7 @@
               {
                 method: "POST",
                 body: JSON.stringify({
+                  "StoryID":id,
                   "StepWiseBreakDown": local_log,
                   "StepLog_Data": steplog,
                   "NetworkLog_Data": xhr_log
