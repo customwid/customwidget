@@ -1044,7 +1044,7 @@
 
             //success message
             if (response.ok) {
-              console.log("Fetch request was successful");
+              console.log("SAC Response: Fetch/POST request was successful");
             }
 
             //error message
