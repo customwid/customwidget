@@ -1034,9 +1034,9 @@
               {
                 method: "POST",
                 body: JSON.stringify({
-                  StepWiseBreakDown: local_log,
-                  StepLog_Data: steplog,
-                  NetworkLog_Data: xhr_log,
+                  "StepWiseBreakDown": local_log,
+                  "StepLog_Data": steplog,
+                  "NetworkLog_Data": xhr_log
                 }),
               }
             );
