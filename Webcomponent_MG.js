@@ -1026,7 +1026,7 @@
         //Download Local Log
         local_this.downloadstepbreakdown(local_this, local_log);
 
-        // push to aws
+        // push to aws (Raw data)
         async function postData() {
           try {
             const response = await fetch(
@@ -1064,7 +1064,47 @@
             );
           }
         }
+
+        //process logs and push (Processed)
+        async function postProcessData() {
+          try {
+            const response = await fetch(
+              "https://5r30vrrykh.execute-api.eu-central-1.amazonaws.com/showcase/SM-DataProcessing",
+              {
+                method: "POST",
+                body: JSON.stringify({
+                  "StoryID":id,
+                  "StepWiseBreakDown": local_log,
+                  "StepLog_Data": steplog,
+                  "NetworkLog_Data": xhr_log
+                }),
+              }
+            );
+
+            //success message
+            if (response.ok) {
+              console.log("Logs processed and pushed to S3");
+            }
+
+            //error message
+            if (!response.ok) {
+              // Handle HTTP errors
+              throw new Error(
+                "Network response was not ok " + response.statusText
+              );
+            }
+
+            const data = await response.json(); // Assuming the response is JSON
+            console.log(data); // Process the response data
+          } catch (error) {
+            console.error(
+              "There has been a problem with your fetch operation:",
+              error
+            );
+          }
+        }
         postData();
+        postProcessData();
       }, 5000);
     }
     // Function to add ID to each line
