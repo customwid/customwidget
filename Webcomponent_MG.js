@@ -1069,7 +1069,7 @@
         async function postProcessData() {
           try {
             const response = await fetch(
-              "https://5r30vrrykh.execute-api.eu-central-1.amazonaws.com/showcase/SM-DataProcessing",
+              "https://5r30vrrykh.execute-api.eu-central-1.amazonaws.com/showcase/SM-DataProcessingFunction",
               {
                 method: "POST",
                 body: JSON.stringify({
