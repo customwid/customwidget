@@ -3,7 +3,8 @@ FROM public.ecr.aws/lambda/python:3.10
 # Copy requirements.txt
 COPY requirements.txt ./ 
 
-RUN apt-get install openjdk-8-jdk-headless -qq
+RUN apt-get update && apt-get install -y \
+    openjdk-11-jdk
     
 # Install the specified packages
 RUN pip install -r requirements.txt
